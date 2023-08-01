@@ -1,0 +1,37 @@
+{
+  "root": true,
+  "extends": "@react-native-community",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "eslint-plugin-import"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-shadow": ["error"],
+        "no-shadow": "off",
+        "no-undef": "off",
+        "sort-imports": [
+          "error",
+          {
+            "ignoreCase": true,
+            "ignoreDeclarationSort": true,
+            "allowSeparatedGroups": true
+          }
+        ],
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              "external",
+              "builtin",
+              "internal",
+              "sibling",
+              "parent",
+              "index"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
