@@ -8,7 +8,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { center, flex1, rowCenter } from '@styles/common';
+import { flex1, rowCenter } from '@styles/common';
 import { range } from 'lodash';
 import { Svg } from '@common/components/index';
 import { margin, padding, sizes } from '@styles/darkTheme';
@@ -49,13 +49,13 @@ const Wizard: FC<Props> = (props) => {
   );
 
   return (
-    <View style={[flex1, style]}>
+    <View style={[styles.container, style]}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleOnBack}>
           <Svg size={24} color="white" name="arrowLeftBack" />
         </TouchableOpacity>
         <Stepper
-          style={[flex1, margin('horizontal')('xxxl')]}
+          style={[flex1, margin('horizontal')('xxl')]}
           stepsCount={stepsCount}
           currentStep={currentStep}
         />
@@ -74,9 +74,14 @@ const Wizard: FC<Props> = (props) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    ...flex1,
+    paddingTop: 20,
+  },
   header: {
     ...rowCenter,
     ...padding('left')('m'),
+    height: 44,
     paddingRight: sizes.l + sizes.m,
   },
 });

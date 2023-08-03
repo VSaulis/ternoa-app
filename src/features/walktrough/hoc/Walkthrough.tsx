@@ -1,95 +1,55 @@
-import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
-import {
-  FlatList,
-  ListRenderItemInfo,
-  useWindowDimensions,
-  View,
-  ViewabilityConfigCallbackPairs,
-  ViewToken,
-} from 'react-native';
+import React, { FC } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { flex1 } from '@styles/common';
-import { margin, padding } from '@styles/darkTheme';
-import { slides } from '@features/walktrough/constants';
+import { padding, sizes } from '@styles/darkTheme';
 import { Button } from '@common/components';
-import { Paging, Slide } from '../components';
-import { Slide as SlideType } from '../types';
+import { useWalkthroughTranslations } from '@i18n/hooks';
+import Swiper from 'react-native-swiper';
+import { useAppDispatch } from '@core/redux-store/store';
+import { completeWalktrough } from '../slice';
+import { slides } from '../constants';
+import { PaginationDot, Slide } from '../components';
 
-interface Props {
-  onComplete: () => void;
-}
-
-const Walkthrough: FC<Props> = (props) => {
-  const { onComplete } = props;
-  const ref = useRef<FlatList>(null);
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const { width } = useWindowDimensions();
-
-  const isLastSlide = useMemo<boolean>(
-    () => currentSlide === slides.length - 1,
-    [currentSlide],
-  );
-
-  const renderItem = (info: ListRenderItemInfo<SlideType>) => {
-    const { item } = info;
-    return <Slide style={{ width }} slide={item} />;
-  };
-
-  const onViewableItemsChanged = ({
-    viewableItems,
-  }: {
-    viewableItems: Array<ViewToken>;
-  }) => {
-    const [viewableItem] = viewableItems;
-    if (viewableItem && viewableItem.index !== null) {
-      setCurrentSlide(viewableItem.index);
-    }
-  };
-
-  const handleOnNextPress = useCallback(async () => {
-    if (isLastSlide) {
-      onComplete();
-      return;
-    }
-
-    ref.current?.scrollToIndex({ index: currentSlide + 1, animated: true });
-  }, [currentSlide, isLastSlide, onComplete]);
-
-  const viewabilityConfigCallbackPairs = useRef<ViewabilityConfigCallbackPairs>(
-    [
-      {
-        onViewableItemsChanged,
-        viewabilityConfig: { viewAreaCoveragePercentThreshold: 90 },
-      },
-    ],
-  );
+const Walkthrough: FC = () => {
+  const dispatch = useAppDispatch();
+  const { t } = useWalkthroughTranslations();
 
   return (
-    <View style={[flex1, padding('vertical')('xxl')]}>
-      <FlatList
-        ref={ref}
-        initialScrollIndex={currentSlide}
-        showsHorizontalScrollIndicator={false}
-        data={slides}
-        renderItem={renderItem}
+    <View style={flex1}>
+      <Swiper
         horizontal
-        pagingEnabled
-        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-      />
-      <View style={[padding('horizontal')('l')]}>
-        <Paging
-          style={margin('bottom')('l')}
-          pagesCount={slides.length}
-          currentPage={currentSlide}
-        />
+        loop={false}
+        showsPagination
+        dot={<PaginationDot color="gray18" />}
+        activeDot={<PaginationDot color="primary5" />}
+        paginationStyle={styles.pagination}>
+        {slides.map((slide, index) => (
+          <Slide key={index} label={slide.label} image={slide.image} />
+        ))}
+      </Swiper>
+      <View
+        style={[
+          padding('horizontal')('l'),
+          padding('top')('xs'),
+          padding('bottom')('xxl'),
+        ]}>
         <Button
-          size="small"
-          tx="walktrough.get_start"
+          size="medium"
+          label={t('Get Started')}
           variant="secondary"
-          onPress={handleOnNextPress}
+          onPress={() => dispatch(completeWalktrough())}
         />
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  pagination: {
+    ...padding('horizontal')('s'),
+    ...padding('vertical')('xs'),
+    bottom: sizes.xs,
+  },
+});
 
 export default Walkthrough;

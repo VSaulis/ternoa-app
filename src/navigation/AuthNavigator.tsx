@@ -3,15 +3,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   CreateNewWalletScreen,
   ImportFromSeedScreen,
-  SetupScreen,
+  WalletSetupScreen,
 } from '@screens';
-import { useTranslation } from 'react-i18next';
 import { getStackScreenOptions } from '@navigation/options';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { createNewWalletRoute, importFromSeedRoute, setupRoute } from './types';
+import { useNavigationTranslations } from '@i18n/hooks';
+import {
+  createNewWalletRoute,
+  importFromSeedRoute,
+  walletSetupRoute,
+} from './types';
 
 export type AuthParamList = {
-  [setupRoute]: undefined;
+  [walletSetupRoute]: undefined;
   [importFromSeedRoute]: undefined;
   [createNewWalletRoute]: undefined;
 };
@@ -19,20 +23,20 @@ export type AuthParamList = {
 const AuthStack = createStackNavigator<AuthParamList>();
 
 const AuthNavigator: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useNavigationTranslations();
   const { top } = useSafeAreaInsets();
 
   return (
     <AuthStack.Navigator
       screenOptions={getStackScreenOptions(top)}
-      initialRouteName={setupRoute}>
+      initialRouteName={walletSetupRoute}>
       <AuthStack.Screen
         options={{ headerShown: false }}
-        name={setupRoute}
-        component={SetupScreen}
+        name={walletSetupRoute}
+        component={WalletSetupScreen}
       />
       <AuthStack.Screen
-        options={{ title: t('navigation.import_from_seed') }}
+        options={{ title: t('Import From Seed') }}
         name={importFromSeedRoute}
         component={ImportFromSeedScreen}
       />

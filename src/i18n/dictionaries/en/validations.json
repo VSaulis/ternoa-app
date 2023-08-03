@@ -1,0 +1,5 @@
+{
+  "Must be at least {{count}} characters": "Must be at least {{count}} characters",
+  "Field is required": "Field is required",
+  "Passwords must match": "Passwords must match"
+}

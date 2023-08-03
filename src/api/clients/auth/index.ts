@@ -1,44 +1,15 @@
-import {
-  ChangePasswordRequest,
-  LoginRequest,
-  LoginResponse,
-  RegisterRequest,
-  RegisterResponse,
-  RemindPasswordRequest,
-} from './types';
-import httpClient from '../../httpClient';
+import { Keyring } from '@polkadot/keyring';
+import { stringToUint8Array } from '@utils/encoding';
+import { ImportFromSeedRequest } from './types';
 
-const baseUrl = '/auth';
+export const importWalletFromSeed = (request: ImportFromSeedRequest) => {
+  const keyring = new Keyring();
+  const seed = Uint8Array.from(stringToUint8Array(request.seedPhrase));
+  const keyPair = keyring.addFromSeed(seed);
 
-export const login = async (request: LoginRequest) => {
-  return httpClient.post<LoginRequest, LoginResponse>(
-    `${baseUrl}/login`,
-    request,
-  );
-};
+  if (keyPair.isLocked) {
+    keyPair.decodePkcs8(request.password);
+  }
 
-export const register = async (request: RegisterRequest) => {
-  return httpClient.post<RegisterRequest, RegisterResponse>(
-    `${baseUrl}/register`,
-    request,
-  );
-};
-
-export const remindPassword = (request: RemindPasswordRequest) => {
-  return httpClient.post<RemindPasswordRequest>(
-    `${baseUrl}/remind-password`,
-    request,
-  );
-};
-
-export const changePassword = (request: ChangePasswordRequest) => {
-  const { token, ...rest } = request;
-
-  return httpClient.post<ChangePasswordRequest>(
-    `${baseUrl}/change-password`,
-    rest,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    },
-  );
+  return keyPair;
 };

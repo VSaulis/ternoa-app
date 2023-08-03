@@ -1,9 +1,12 @@
-export { default as TextArchivo } from './TextArchivo';
+export { default as Text } from './Text';
 export { default as Button } from './Button';
 export { default as ScreenContainer } from './ScreenContainer';
 export { default as Svg } from './Svg';
 export { default as Input } from './Input';
 export { default as Switch } from './Switch';
-export { default as Stepper } from './Stepper';
+export { default as GradientButton } from './GradientButton';
 export { default as Wizard } from './Wizard';
 export { default as Checkbox } from './Checkbox';
+export { default as TextGradient } from './TextGradient';
+export { default as ProgressBar } from './ProgressBar';
+export { default as Dot } from './Dot';

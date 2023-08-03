@@ -1,6 +1,9 @@
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useValidationsTranslations } from '@i18n/hooks';
+// @ts-ignore
+import { TFunction } from 'i18next';
 import { CreateNewPasswordFormData } from '../types';
 
 const initialFormData: CreateNewPasswordFormData = {
@@ -10,28 +13,33 @@ const initialFormData: CreateNewPasswordFormData = {
   isAgreementChecked: false,
 };
 
-const getSchema = () => {
+const getSchema = (t: TFunction) => {
   return yup.object().shape({
-    newPassword: yup.string().min(8).required(),
+    newPassword: yup
+      .string()
+      .min(8, t('Must be at least {{count}} characters', { count: 8 }))
+      .required(t('Field is required')),
     isFaceIdEnabled: yup.boolean().required(),
-    isAgreementChecked: yup.boolean().required().oneOf([true]),
+    isAgreementChecked: yup
+      .boolean()
+      .required(t('Field is required'))
+      .oneOf([true]),
     confirmNewPassword: yup
       .string()
-      .required()
-      .oneOf([yup.ref('password')]),
+      .required(t('Field is required'))
+      .oneOf([yup.ref('newPassword')], t('Passwords must match')),
   });
 };
 
 const useCreateNewPasswordForm = () => {
-  const { control, handleSubmit, formState } =
-    useForm<CreateNewPasswordFormData>({
-      mode: 'onChange',
-      reValidateMode: 'onChange',
-      defaultValues: initialFormData,
-      resolver: yupResolver(getSchema()),
-    });
+  const { t } = useValidationsTranslations();
 
-  return { control, handleSubmit, isValid: formState.isValid };
+  const { control, handleSubmit } = useForm<CreateNewPasswordFormData>({
+    defaultValues: initialFormData,
+    resolver: yupResolver(getSchema(t)),
+  });
+
+  return { control, handleSubmit };
 };
 
 export default useCreateNewPasswordForm;

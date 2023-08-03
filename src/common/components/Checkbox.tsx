@@ -1,13 +1,7 @@
-import React, { FC, ReactNode, useMemo } from 'react';
-import {
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from 'react-native';
+import React, { FC, useMemo } from 'react';
+import { Pressable, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { colors, sizes } from '@styles/darkTheme';
-import { center, rowStart } from '@styles/common';
+import { center } from '@styles/common';
 import Svg from './Svg';
 
 interface Props {
@@ -16,7 +10,6 @@ interface Props {
   isDisabled?: boolean;
   size?: number;
   onChange?: (isChecked: boolean) => void;
-  Label?: ReactNode;
 }
 
 const Checkbox: FC<Props> = (props) => {
@@ -26,11 +19,10 @@ const Checkbox: FC<Props> = (props) => {
     isChecked = false,
     isDisabled = false,
     size = 24,
-    Label,
   } = props;
 
   const backgroundColor = useMemo<ViewStyle['backgroundColor']>(
-    () => (isChecked ? colors.primary : colors.grey18),
+    () => (isChecked ? colors.primary5 : colors.gray20),
     [isChecked],
   );
 
@@ -43,15 +35,12 @@ const Checkbox: FC<Props> = (props) => {
   );
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => onChange?.(!isChecked)}
       disabled={isDisabled}
-      style={[style, rowStart]}>
-      <View style={[styles.container, sizeStyle, { backgroundColor }]}>
-        {isChecked && <Svg color="white" size={12} name="check" />}
-      </View>
-      {!!Label && Label}
-    </TouchableOpacity>
+      style={[styles.container, sizeStyle, { backgroundColor }, style]}>
+      {isChecked && <Svg color="white" size={12} name="check" />}
+    </Pressable>
   );
 };
 

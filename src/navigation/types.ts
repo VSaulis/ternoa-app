@@ -1,9 +1,14 @@
 import { StackScreenProps } from '@react-navigation/stack';
+import { RootParamList } from './RootNavigator';
 import { MainParamList } from './MainNavigator';
 import { AuthParamList } from './AuthNavigator';
 
 export type MainNavigatorRoute = 'Main';
 export const mainNavigatorRoute: MainNavigatorRoute = 'Main';
+
+export type WalletsRoute = 'Wallets';
+export const walletsRoute: WalletsRoute = 'Wallets';
+export type WalletsScreenProps = StackScreenProps<MainParamList, WalletsRoute>;
 
 export type AuthNavigatorRoute = 'Auth';
 export const authNavigatorRoute: AuthNavigatorRoute = 'Auth';
@@ -11,13 +16,16 @@ export const authNavigatorRoute: AuthNavigatorRoute = 'Auth';
 export type WalkthroughRoute = 'Walkthrough';
 export const walkthroughRoute: WalkthroughRoute = 'Walkthrough';
 export type WalkthroughScreenProps = StackScreenProps<
-  MainParamList,
+  RootParamList,
   WalkthroughRoute
 >;
 
-export type SetupRoute = 'Setup';
-export const setupRoute: SetupRoute = 'Setup';
-export type SetupScreenProps = StackScreenProps<AuthParamList, SetupRoute>;
+export type WalletSetupRoute = 'WalletSetup';
+export const walletSetupRoute: WalletSetupRoute = 'WalletSetup';
+export type WalletSetupScreenProps = StackScreenProps<
+  AuthParamList,
+  WalletSetupRoute
+>;
 
 export type ImportFromSeedRoute = 'ImportFromSeed';
 export const importFromSeedRoute: ImportFromSeedRoute = 'ImportFromSeed';

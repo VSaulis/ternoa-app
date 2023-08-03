@@ -8,6 +8,8 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import { WalktroughScreen } from '@screens';
+import { useAppSelector } from '@core/redux-store/store';
+import { selectIsWalktroughCompleted } from '@features/walktrough/selectors';
 import AuthNavigator, { AuthParamList } from './AuthNavigator';
 import MainNavigator, { MainParamList } from './MainNavigator';
 import {
@@ -30,16 +32,20 @@ export type RootParamList = {
 const RootStack = createStackNavigator<RootParamList>();
 
 const RootNavigator: FC = () => {
+  const isWalktroughCompleted = useAppSelector(selectIsWalktroughCompleted);
+
   return (
     <NavigationContainer theme={theme}>
       <RootStack.Navigator
         screenOptions={screenOptions}
         initialRouteName={walkthroughRoute}>
         <RootStack.Group>
-          <RootStack.Screen
-            name={walkthroughRoute}
-            component={WalktroughScreen}
-          />
+          {!isWalktroughCompleted && (
+            <RootStack.Screen
+              name={walkthroughRoute}
+              component={WalktroughScreen}
+            />
+          )}
           <RootStack.Screen
             name={authNavigatorRoute}
             component={AuthNavigator}

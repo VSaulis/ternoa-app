@@ -26,7 +26,7 @@ const Stepper: FC<Props> = (props) => {
       </View>
       {range(stepsCount).map((page) => (
         <Dot
-          color={page <= currentStep ? 'primary' : 'grey21'}
+          color={page <= currentStep ? 'primary5' : 'gray21'}
           size={8}
           key={page}
         />
@@ -46,11 +46,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 1,
-    backgroundColor: colors.grey21,
+    backgroundColor: colors.gray21,
   },
   progressBar: {
     height: 1,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primary5,
   },
 });
 

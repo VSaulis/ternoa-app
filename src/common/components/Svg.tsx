@@ -7,11 +7,13 @@ import { colors } from '@styles/darkTheme';
 import ArrowLeftBack from '@assets/svg/arrow-left-back.svg';
 import EyeVisible from '@assets/svg/eye-visble.svg';
 import Check from '@assets/svg/check.svg';
+import Info from '@assets/svg/info.svg';
 
 const icons: Record<IconName, FC<SvgProps>> = {
   arrowLeftBack: ArrowLeftBack,
   eyeVisible: EyeVisible,
   check: Check,
+  info: Info,
 };
 
 export interface SvgIconProps

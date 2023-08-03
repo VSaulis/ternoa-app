@@ -16,7 +16,7 @@ const ScreenContainer: FC<PropsWithChildren<Props>> = (props) => {
 const styles = StyleSheet.create({
   container: {
     ...flex1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.gray24,
   },
 });
 

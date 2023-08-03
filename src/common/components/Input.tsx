@@ -1,57 +1,72 @@
-import React, { FC, ReactNode, useMemo, useRef, useState } from 'react';
+import React, { FC, useMemo, useRef, useState } from 'react';
 import {
+  StyleProp,
   StyleSheet,
   TextInput,
   TextInputProps,
-  TextStyle,
   TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
-import { colors, fonts, fontSizes, padding, sizes } from '@styles/darkTheme';
-import { useTranslation } from 'react-i18next';
+import {
+  colors,
+  fonts,
+  fontSizes,
+  margin,
+  padding,
+  sizes,
+} from '@styles/darkTheme';
 import { NativeSyntheticEvent } from 'react-native/Libraries/Types/CoreEventTypes';
 import { TextInputFocusEventData } from 'react-native/Libraries/Components/TextInput/TextInput';
+import hexToRgba from 'hex-to-rgba';
 import Svg from './Svg';
-import TextArchivo from './TextArchivo';
+import Text from './Text';
 
-interface Props
-  extends Omit<
-    TextInputProps,
-    'style' | 'placeholderTextColor' | 'placeholder' | 'keyboardAppearance'
-  > {
-  style?: ViewStyle;
-  labelTx: string;
-  Help?: ReactNode;
+type InputProps = Omit<
+  TextInputProps,
+  | 'style'
+  | 'placeholderTextColor'
+  | 'placeholder'
+  | 'keyboardAppearance'
+  | 'onContentSizeChange'
+  | 'onChange'
+  | 'onChangeText'
+>;
+
+interface Props extends InputProps {
+  style?: StyleProp<ViewStyle>;
+  label: string;
+  error?: string;
+  help?: string;
+  onChange: (text: string) => void;
 }
 
 const Input: FC<Props> = (props) => {
   const {
     style,
     secureTextEntry = false,
-    labelTx,
+    label,
     value,
     onFocus,
     onBlur,
-    Help,
+    error,
+    help,
+    onChange,
     ...rest
   } = props;
 
   const ref = useRef<TextInput>(null);
-  const { t } = useTranslation();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isHidden, setIsHidden] = useState<boolean>(secureTextEntry);
+  const [height, setHeight] = useState<number>(64);
 
   const isSmallLabel = useMemo<boolean>(
     () => !!value || isFocused,
     [isFocused, value],
   );
 
-  const dynamicLabelStyle = useMemo<TextStyle>(
-    () => ({
-      top: isSmallLabel ? sizes.s : sizes.s + sizes.xs,
-      ...(isSmallLabel ? fontSizes.xs : fontSizes.s),
-    }),
+  const labelTopShift = useMemo<number>(
+    () => (isSmallLabel ? sizes.s : sizes.s + sizes.xs),
     [isSmallLabel],
   );
 
@@ -65,16 +80,13 @@ const Input: FC<Props> = (props) => {
     onBlur?.(e);
   };
 
+  const updateHeight = (contentSize: { height: number }) => {
+    setHeight(contentSize.height);
+  };
+
   return (
     <View style={style}>
-      <View>
-        <TextArchivo
-          onPress={() => ref.current?.focus()}
-          style={[styles.label, dynamicLabelStyle]}
-          fontWeight="regular"
-          color="grey12"
-          tx={t(labelTx)}
-        />
+      <>
         <TextInput
           ref={ref}
           keyboardAppearance="dark"
@@ -83,9 +95,22 @@ const Input: FC<Props> = (props) => {
           value={value}
           secureTextEntry={isHidden}
           cursorColor={colors.white}
-          style={styles.input}
+          style={[
+            styles.input,
+            { height, borderColor: error ? colors.red5 : colors.gray22 },
+          ]}
+          onChangeText={onChange}
+          onContentSizeChange={(e) => updateHeight(e.nativeEvent.contentSize)}
           {...rest}
         />
+        <Text
+          fontWeight={isSmallLabel ? 'regular' : 'semiBold'}
+          fontSize={isSmallLabel ? 'xs' : 's'}
+          onPress={() => ref.current?.focus()}
+          style={[styles.label, { top: labelTopShift }]}
+          color="gray12">
+          {label}
+        </Text>
         {secureTextEntry && (
           <TouchableOpacity
             style={styles.hideIcon}
@@ -93,8 +118,25 @@ const Input: FC<Props> = (props) => {
             <Svg size={24} color="white" name="eyeVisible" />
           </TouchableOpacity>
         )}
-      </View>
-      {!!Help && Help}
+      </>
+      {!!help && (
+        <Text
+          fontWeight="regular"
+          fontSize="xs"
+          style={[margin('top')('xxs'), padding('left')('m')]}
+          color="gray12">
+          {help}
+        </Text>
+      )}
+      {!!error && (
+        <Text
+          fontWeight="regular"
+          fontSize="xs"
+          style={[margin('top')('xxs'), padding('left')('m')]}
+          color="red5">
+          {error}
+        </Text>
+      )}
     </View>
   );
 };
@@ -103,20 +145,18 @@ const styles = StyleSheet.create({
   label: {
     position: 'absolute',
     left: sizes.m,
-    zIndex: 2,
   },
   input: {
     ...fonts.archivo.semiBold,
-    ...fontSizes.s,
-    ...padding('horizontal')('m'),
+    ...padding('left')('m'),
     ...padding('bottom')('s'),
+    fontSize: fontSizes.s.fontSize,
     height: 64,
     paddingTop: 28,
     borderRadius: 16,
     color: colors.white,
-    backgroundColor: colors.background,
+    backgroundColor: hexToRgba(colors.black, 0),
     borderWidth: 1,
-    borderColor: colors.grey22,
   },
   hideIcon: {
     position: 'absolute',

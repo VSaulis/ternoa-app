@@ -22,8 +22,8 @@ const Switch: FC<SwitchProps> = (props) => {
         circleSize={24}
         barHeight={32}
         circleBorderWidth={0}
-        backgroundActive={colors.primary}
-        backgroundInactive={colors.grey18}
+        backgroundActive={colors.primary5}
+        backgroundInactive={colors.gray20}
         circleActiveColor={colors.white}
         circleInActiveColor={colors.white}
         changeValueImmediately

@@ -9,10 +9,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 import YupPassword from 'yup-password';
 import * as yup from 'yup';
-import { setupTranslations } from '@i18n';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import RootNavigator from '@navigation/RootNavigator';
+import { setupTranslations } from '@i18n/setup';
 
 setupTranslations();
 dayjs.extend(isToday);
@@ -26,7 +26,7 @@ const App: FC = () => {
   return (
     <Provider store={store}>
       <StatusBar
-        backgroundColor={colors.background}
+        backgroundColor={colors.gray24}
         barStyle="light-content"
         translucent={false}
       />

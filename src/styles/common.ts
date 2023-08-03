@@ -14,6 +14,11 @@ export const rowStart: ViewStyle = {
   alignItems: 'flex-start',
 };
 
+export const rowEnd: ViewStyle = {
+  flexDirection: 'row',
+  alignItems: 'flex-end',
+};
+
 export const center: ViewStyle = {
   justifyContent: 'center',
   alignItems: 'center',
