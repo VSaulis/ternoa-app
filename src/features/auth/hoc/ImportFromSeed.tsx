@@ -1,16 +1,12 @@
 import React, { FC } from 'react';
 import { ImportFromSeedForm } from '../components';
-import { useImportFromSeed, useImportFromSeedForm } from '../hooks';
+import { useImportFromSeed } from '../hooks';
 
 const ImportFromSeed: FC = () => {
-  const { importFromSeed } = useImportFromSeed();
-  const { control, handleSubmit } = useImportFromSeedForm();
+  const { control, handleSubmit, onSubmit } = useImportFromSeed();
 
   return (
-    <ImportFromSeedForm
-      control={control}
-      onSubmit={handleSubmit(importFromSeed)}
-    />
+    <ImportFromSeedForm control={control} onSubmit={handleSubmit(onSubmit)} />
   );
 };
 

@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useValidationsTranslations } from '@i18n/hooks';
 // @ts-ignore
 import { TFunction } from 'i18next';
+import { importWalletFromSeed } from '@utils/api';
 import { ImportFromSeedFormData } from '../types';
 
 const initialFormData: ImportFromSeedFormData = {
@@ -31,12 +32,16 @@ const getSchema = (t: TFunction) => {
 const useImportFromSeedForm = () => {
   const { t } = useValidationsTranslations();
 
+  const onSubmit = (formData: ImportFromSeedFormData) => {
+    importWalletFromSeed(formData.seedPhrase, formData.newPassword);
+  };
+
   const { control, handleSubmit } = useForm<ImportFromSeedFormData>({
     defaultValues: initialFormData,
     resolver: yupResolver(getSchema(t)),
   });
 
-  return { control, handleSubmit };
+  return { control, handleSubmit, onSubmit };
 };
 
 export default useImportFromSeedForm;

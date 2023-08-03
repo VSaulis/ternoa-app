@@ -1,0 +1,22 @@
+import { Keyring } from '@polkadot/keyring';
+import { stringToUint8Array } from '@utils/encoding';
+
+export const importWalletFromSeed = (seedPhrase: string, password: string) => {
+  const keyring = new Keyring();
+  const seed = Uint8Array.from(stringToUint8Array(seedPhrase));
+  const keyPair = keyring.addFromSeed(seed);
+
+  if (keyPair.isLocked) {
+    keyPair.decodePkcs8(password);
+  }
+
+  return keyPair;
+};
+
+export const addWalletFromSeed = (seedPhrase: string, password: string) => {
+  const keyring = new Keyring();
+  const seed = Uint8Array.from(stringToUint8Array(seedPhrase));
+  const keyPair = keyring.addFromSeed(seed);
+  keyPair.encodePkcs8(password);
+  return keyPair;
+};
