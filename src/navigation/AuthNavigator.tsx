@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   CreateNewWalletScreen,
   ImportFromSeedScreen,
+  WalletCreationSuccessScreen,
   WalletSetupScreen,
 } from '@screens';
 import { getStackScreenOptions } from '@navigation/options';
@@ -11,6 +12,7 @@ import { useNavigationTranslations } from '@i18n/hooks';
 import {
   createNewWalletRoute,
   importFromSeedRoute,
+  walletCreationSuccessRoute,
   walletSetupRoute,
 } from './types';
 
@@ -18,6 +20,7 @@ export type AuthParamList = {
   [walletSetupRoute]: undefined;
   [importFromSeedRoute]: undefined;
   [createNewWalletRoute]: undefined;
+  [walletCreationSuccessRoute]: undefined;
 };
 
 const AuthStack = createStackNavigator<AuthParamList>();
@@ -44,6 +47,11 @@ const AuthNavigator: FC = () => {
         options={{ headerShown: false }}
         name={createNewWalletRoute}
         component={CreateNewWalletScreen}
+      />
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name={walletCreationSuccessRoute}
+        component={WalletCreationSuccessScreen}
       />
     </AuthStack.Navigator>
   );

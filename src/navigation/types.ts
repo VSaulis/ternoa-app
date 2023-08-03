@@ -40,3 +40,11 @@ export type CreateNewWalletScreenProps = StackScreenProps<
   AuthParamList,
   CreateNewWalletRoute
 >;
+
+export type WalletCreationSuccessRoute = 'WalletCreationSuccess';
+export const walletCreationSuccessRoute: WalletCreationSuccessRoute =
+  'WalletCreationSuccess';
+export type WalletCreationSuccessScreenProps = StackScreenProps<
+  AuthParamList,
+  WalletCreationSuccessRoute
+>;

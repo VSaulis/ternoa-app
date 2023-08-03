@@ -1,24 +1,18 @@
 import React, { FC } from 'react';
-import { Image, StyleProp, View, ViewStyle } from 'react-native';
+import { Image, View } from 'react-native';
 import { center, flex1 } from '@styles/common';
-import { margin } from '@styles/darkTheme';
+import { margin, padding } from '@styles/darkTheme';
 import { GradientButton, Text, TextGradient } from '@common/components';
 import { useAuthTranslations } from '@i18n/hooks';
 import { slideContentStyle, slideFooterStyle } from '../styles';
 
 const successIllustration = require('@assets/images/success.png');
 
-interface Props {
-  style?: StyleProp<ViewStyle>;
-  onNext: () => void;
-}
-
-const SeedPhraseSuccess: FC<Props> = (props) => {
-  const { style, onNext } = props;
+const WalletCreationSuccess: FC = () => {
   const { t } = useAuthTranslations();
 
   return (
-    <View style={[flex1, style]}>
+    <View style={flex1}>
       <View style={[flex1, slideContentStyle]}>
         <View style={[center, margin('bottom')('l')]}>
           <Image width={255} height={255} source={successIllustration} />
@@ -32,6 +26,7 @@ const SeedPhraseSuccess: FC<Props> = (props) => {
           {t('Success!')}
         </TextGradient>
         <Text
+          style={[padding('horizontal')('m')]}
           textAlign="center"
           fontSize="s"
           fontWeight="regular"
@@ -42,15 +37,10 @@ const SeedPhraseSuccess: FC<Props> = (props) => {
         </Text>
       </View>
       <View style={slideFooterStyle}>
-        <GradientButton
-          onPress={onNext}
-          size="medium"
-          variant="primary"
-          label={t('Next')}
-        />
+        <GradientButton size="medium" variant="primary" label={t('Complete')} />
       </View>
     </View>
   );
 };
 
-export default SeedPhraseSuccess;
+export default WalletCreationSuccess;

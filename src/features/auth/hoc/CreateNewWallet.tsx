@@ -1,14 +1,17 @@
 import React, { FC, useState } from 'react';
 import { Wizard } from '@common/components';
-import CreatePassword from './CreatePassword';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { AuthParamList } from '@navigation/AuthNavigator';
+import { walletCreationSuccessRoute } from '@navigation/types';
+import CreateNewPassword from './CreateNewPassword';
+import { WalletCreationProvider } from '../providers';
 import {
   SecureWalletDescription,
   SeedPhraseConfirmation,
   SeedPhraseDescription,
   SeedPhrasePreview,
-  SeedPhraseSuccess,
 } from '../components';
-import { WalletCreationProvider } from '../providers';
 
 interface Props {
   onClose: () => void;
@@ -17,14 +20,19 @@ interface Props {
 const CreateNewWallet: FC<Props> = (props) => {
   const { onClose } = props;
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const navigation = useNavigation<StackNavigationProp<AuthParamList>>();
 
   const onNextStep = () => {
     setCurrentStep((prevState) => prevState + 1);
   };
 
+  const handleOnComplete = () => {
+    navigation.replace(walletCreationSuccessRoute);
+  };
+
   const renderStep = (step: number) => {
     if (step === 0) {
-      return <CreatePassword onComplete={onNextStep} />;
+      return <CreateNewPassword onComplete={onNextStep} />;
     }
 
     if (step === 1) {
@@ -40,11 +48,7 @@ const CreateNewWallet: FC<Props> = (props) => {
     }
 
     if (step === 4) {
-      return <SeedPhraseConfirmation onComplete={onNextStep} />;
-    }
-
-    if (step === 5) {
-      return <SeedPhraseSuccess onNext={onNextStep} />;
+      return <SeedPhraseConfirmation onComplete={handleOnComplete} />;
     }
 
     return <></>;
@@ -57,7 +61,7 @@ const CreateNewWallet: FC<Props> = (props) => {
         onStepChange={setCurrentStep}
         onClose={onClose}
         currentStep={currentStep}
-        stepsCount={6}
+        stepsCount={5}
       />
     </WalletCreationProvider>
   );

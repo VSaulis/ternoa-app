@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { center, flex1 } from '@styles/common';
 import { colors, margin } from '@styles/darkTheme';
@@ -9,21 +9,64 @@ import {
   TextGradient,
 } from '@common/components';
 import { useAuthTranslations } from '@i18n/hooks';
+import { pickRandomIndex, pickRandomPhrases } from '@utils/crypto';
 import SeedPhraseSelect from './SeedPhraseSelect';
 import { slideContentStyle, slideFooterStyle } from '../styles';
+import { WalletCreationContext } from '../providers/WalletCreationProvider';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
-  onComplete: () => void;
+  onComplete: (isSuccess: boolean) => void;
 }
+
+const stepsCount = 3;
 
 const SeedPhraseConfirmation: FC<Props> = (props) => {
   const { style, onComplete } = props;
   const { t } = useAuthTranslations();
+  const { seedPhrase } = useContext(WalletCreationContext);
+  const [options, setOptions] = useState<string[]>([]);
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const [selectedPhrase, setSelectedPhrase] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState<boolean>(true);
+  const [usedIndexes, setUsedIndexes] = useState<number[]>([]);
 
-  const [selectedPhrase, setSelectedPhrase] = useState<string | undefined>(
-    undefined,
+  const generateRandomPhrases = useCallback(
+    (indexes: number[] = []) => {
+      const newIndex = pickRandomIndex(indexes);
+      setSelectedPhrase(null);
+      setOptions(pickRandomPhrases(seedPhrase ?? [], newIndex));
+      setCurrentIndex(newIndex);
+      setUsedIndexes((prevState) => [...prevState, newIndex]);
+    },
+    [seedPhrase],
   );
+
+  useEffect(() => {
+    setUsedIndexes([]);
+  }, [seedPhrase]);
+
+  useEffect(() => {
+    generateRandomPhrases();
+  }, [generateRandomPhrases]);
+
+  const handleOnNext = () => {
+    if (!seedPhrase || currentIndex === null) {
+      return;
+    }
+
+    if (usedIndexes.length === stepsCount) {
+      onComplete(isSuccess);
+      return;
+    }
+
+    generateRandomPhrases(usedIndexes);
+
+    const currentPhrase = seedPhrase[currentIndex];
+    if (currentPhrase !== selectedPhrase) {
+      setIsSuccess(false);
+    }
+  };
 
   return (
     <View style={[flex1, style]}>
@@ -49,21 +92,23 @@ const SeedPhraseConfirmation: FC<Props> = (props) => {
             fontWeight="regular"
             fontSize="xxl"
             gradient="gradient1">
-            {`3. ${selectedPhrase ?? ''}`}
+            {`${currentIndex}. ${selectedPhrase ?? ''}`}
           </TextGradient>
         </View>
         <View style={[center, margin('bottom')('l')]}>
-          <ProgressBar color="primary5" width={140} total={3} value={1} />
+          <ProgressBar
+            color="primary5"
+            width={140}
+            total={stepsCount}
+            value={usedIndexes.length}
+          />
         </View>
-        <SeedPhraseSelect
-          options={['future', 'frequent', 'target', 'abuse', 'organ', 'bubble']}
-          onSelect={setSelectedPhrase}
-        />
+        <SeedPhraseSelect options={options} onSelect={setSelectedPhrase} />
       </View>
       <View style={slideFooterStyle}>
         <GradientButton
           isDisabled={!selectedPhrase}
-          onPress={onComplete}
+          onPress={handleOnNext}
           size="medium"
           variant="primary"
           label={t('Next')}

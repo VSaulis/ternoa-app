@@ -32,14 +32,19 @@ const WalletCreationProvider: FC<PropsWithChildren> = (props) => {
     setSeedPhrase(null);
   }, []);
 
+  const handleGenerateSeedPhrase = useCallback(
+    () => setSeedPhrase(generateSeedPhraseUtil()),
+    [],
+  );
+
   const initialContextValue = useMemo<WalletCreationContextValue>(
     () => ({
       password,
       seedPhrase,
       setPassword: handleSetNewPassword,
-      generateSeedPhrase: () => setSeedPhrase(generateSeedPhraseUtil()),
+      generateSeedPhrase: handleGenerateSeedPhrase,
     }),
-    [password, seedPhrase, handleSetNewPassword],
+    [password, seedPhrase, handleSetNewPassword, handleGenerateSeedPhrase],
   );
 
   return (

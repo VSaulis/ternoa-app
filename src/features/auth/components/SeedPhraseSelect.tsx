@@ -22,8 +22,8 @@ const SeedPhraseSelect: FC<Props> = (props) => {
 
   return (
     <View style={[styles.container, style]}>
-      {options.map((phrase) => (
-        <View key={phrase} style={padding('full')('xs')}>
+      {options.map((phrase, index) => (
+        <View key={index} style={padding('full')('xs')}>
           <TouchableOpacity
             onPress={() => onSelect(phrase)}
             style={styles.phrase}>
