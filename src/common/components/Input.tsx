@@ -1,25 +1,15 @@
-import React, { FC, useMemo, useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import {
-  StyleProp,
+  NativeSyntheticEvent,
   StyleSheet,
   TextInput,
+  TextInputFocusEventData,
   TextInputProps,
   TouchableOpacity,
-  View,
-  ViewStyle,
 } from 'react-native';
-import {
-  colors,
-  fonts,
-  fontSizes,
-  margin,
-  padding,
-  sizes,
-} from '@styles/darkTheme';
-import { NativeSyntheticEvent } from 'react-native/Libraries/Types/CoreEventTypes';
-import { TextInputFocusEventData } from 'react-native/Libraries/Components/TextInput/TextInput';
-import hexToRgba from 'hex-to-rgba';
+import { colors, fonts, fontSizes, padding, sizes } from '@styles/darkTheme';
 import Svg from './Svg';
+import FormControl, { FormControlProps } from './FormControl';
 import Text from './Text';
 
 type InputProps = Omit<
@@ -28,16 +18,13 @@ type InputProps = Omit<
   | 'placeholderTextColor'
   | 'placeholder'
   | 'keyboardAppearance'
-  | 'onContentSizeChange'
   | 'onChange'
   | 'onChangeText'
+  | 'onContentSizeChange'
 >;
 
-interface Props extends InputProps {
-  style?: StyleProp<ViewStyle>;
+interface Props extends InputProps, FormControlProps {
   label: string;
-  error?: string;
-  help?: string;
   onChange: (text: string) => void;
 }
 
@@ -47,116 +34,74 @@ const Input: FC<Props> = (props) => {
     secureTextEntry = false,
     label,
     value,
-    onFocus,
-    onBlur,
     error,
     help,
+    onBlur,
+    onFocus,
     onChange,
     ...rest
   } = props;
 
   const ref = useRef<TextInput>(null);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isHidden, setIsHidden] = useState<boolean>(secureTextEntry);
-  const [height, setHeight] = useState<number>(64);
-
-  const isSmallLabel = useMemo<boolean>(
-    () => !!value || isFocused,
-    [isFocused, value],
-  );
-
-  const labelTopShift = useMemo<number>(
-    () => (isSmallLabel ? sizes.s : sizes.s + sizes.xs),
-    [isSmallLabel],
-  );
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const isLabelShifted = isFocused || !!value;
+  const labelTopShift = isLabelShifted ? sizes.s : 20;
 
   const handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     setIsFocused(true);
     onFocus?.(e);
   };
 
-  const handleOnBlue = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+  const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     setIsFocused(false);
     onBlur?.(e);
   };
 
-  const updateHeight = (contentSize: { height: number }) => {
-    setHeight(contentSize.height);
-  };
-
   return (
-    <View style={style}>
-      <>
-        <TextInput
-          ref={ref}
-          keyboardAppearance="dark"
-          onBlur={handleOnBlue}
-          onFocus={handleOnFocus}
-          value={value}
-          secureTextEntry={isHidden}
-          cursorColor={colors.white}
-          style={[
-            styles.input,
-            { height, borderColor: error ? colors.red5 : colors.gray22 },
-          ]}
-          onChangeText={onChange}
-          onContentSizeChange={(e) => updateHeight(e.nativeEvent.contentSize)}
-          {...rest}
-        />
-        <Text
-          fontWeight={isSmallLabel ? 'regular' : 'semiBold'}
-          fontSize={isSmallLabel ? 'xs' : 's'}
-          onPress={() => ref.current?.focus()}
-          style={[styles.label, { top: labelTopShift }]}
-          color="gray12">
-          {label}
-        </Text>
-        {secureTextEntry && (
-          <TouchableOpacity
-            style={styles.hideIcon}
-            onPress={() => setIsHidden((prev) => !prev)}>
-            <Svg size={24} color="white" name="eyeVisible" />
-          </TouchableOpacity>
-        )}
-      </>
-      {!!help && (
-        <Text
-          fontWeight="regular"
-          fontSize="xs"
-          style={[margin('top')('xxs'), padding('left')('m')]}
-          color="gray12">
-          {help}
-        </Text>
+    <FormControl style={style} error={error} help={help}>
+      <Text
+        color="gray12"
+        fontSize={isLabelShifted ? 'xs' : 's'}
+        fontWeight={isLabelShifted ? 'regular' : 'semiBold'}
+        style={[padding('left')('m'), { top: labelTopShift }]}
+        onPress={() => ref.current?.focus()}>
+        {label}
+      </Text>
+      <TextInput
+        ref={ref}
+        keyboardAppearance="dark"
+        value={value}
+        onBlur={handleOnBlur}
+        onFocus={handleOnFocus}
+        secureTextEntry={isHidden}
+        cursorColor={colors.white}
+        style={[
+          styles.input,
+          { paddingBottom: isLabelShifted ? sizes.s : sizes.xxs },
+        ]}
+        onChangeText={onChange}
+        {...rest}
+      />
+      {secureTextEntry && (
+        <TouchableOpacity
+          style={styles.hideIcon}
+          onPress={() => setIsHidden((prev) => !prev)}>
+          <Svg size={24} color="white" name="eyeVisible" />
+        </TouchableOpacity>
       )}
-      {!!error && (
-        <Text
-          fontWeight="regular"
-          fontSize="xs"
-          style={[margin('top')('xxs'), padding('left')('m')]}
-          color="red5">
-          {error}
-        </Text>
-      )}
-    </View>
+    </FormControl>
   );
 };
 
 const styles = StyleSheet.create({
-  label: {
-    position: 'absolute',
-    left: sizes.m,
-  },
   input: {
     ...fonts.archivo.semiBold,
-    ...padding('left')('m'),
-    ...padding('bottom')('s'),
-    fontSize: fontSizes.s.fontSize,
-    height: 64,
-    paddingTop: 28,
-    borderRadius: 16,
+    ...fontSizes.s,
+    ...padding('horizontal')('m'),
+    borderBottomLeftRadius: sizes.m,
+    borderBottomRightRadius: sizes.m,
     color: colors.white,
-    backgroundColor: hexToRgba(colors.black, 0),
-    borderWidth: 1,
   },
   hideIcon: {
     position: 'absolute',

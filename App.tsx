@@ -13,8 +13,11 @@ import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import RootNavigator from '@navigation/RootNavigator';
 import { setupTranslations } from '@i18n/setup';
+import { CachedResourcesLoader } from '@common/hoc';
+import { setupApi } from '@api/setup';
 
 setupTranslations();
+setupApi();
 dayjs.extend(isToday);
 YupPassword(yup);
 
@@ -32,7 +35,9 @@ const App: FC = () => {
       />
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
-          <RootNavigator />
+          <CachedResourcesLoader>
+            <RootNavigator />
+          </CachedResourcesLoader>
         </QueryClientProvider>
       </SafeAreaProvider>
     </Provider>

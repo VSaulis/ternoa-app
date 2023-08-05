@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   CreateNewWalletScreen,
-  ImportFromSeedScreen,
+  ImportWalletScreen,
   WalletCreationSuccessScreen,
   WalletSetupScreen,
 } from '@screens';
@@ -11,14 +11,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigationTranslations } from '@i18n/hooks';
 import {
   createNewWalletRoute,
-  importFromSeedRoute,
+  importWalletRoute,
   walletCreationSuccessRoute,
   walletSetupRoute,
 } from './types';
 
 export type AuthParamList = {
   [walletSetupRoute]: undefined;
-  [importFromSeedRoute]: undefined;
+  [importWalletRoute]: undefined;
   [createNewWalletRoute]: undefined;
   [walletCreationSuccessRoute]: undefined;
 };
@@ -40,8 +40,8 @@ const AuthNavigator: FC = () => {
       />
       <AuthStack.Screen
         options={{ title: t('Import From Seed') }}
-        name={importFromSeedRoute}
-        component={ImportFromSeedScreen}
+        name={importWalletRoute}
+        component={ImportWalletScreen}
       />
       <AuthStack.Screen
         options={{ headerShown: false }}

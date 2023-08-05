@@ -1,17 +1,22 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useAppDispatch } from '@core/redux-store/store';
+import { getIsWalkthroughCompleted } from '@features/walktrough/storage';
+import { setIsWalktroughCompleted } from '@features/walktrough/slice';
 
 const useCachedResources = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const loadCachedResources = useCallback(async () => {
-    setIsLoading(true);
-  }, []);
+    const isWalkthroughCompleted = await getIsWalkthroughCompleted();
+    dispatch(setIsWalktroughCompleted(isWalkthroughCompleted ?? false));
+  }, [dispatch]);
 
   useEffect(() => {
-    loadCachedResources().finally(() => setIsLoading(false));
+    loadCachedResources().finally(() => setIsLoaded(true));
   }, [loadCachedResources]);
 
-  return { isLoading };
+  return { isLoaded };
 };
 
 export default useCachedResources;

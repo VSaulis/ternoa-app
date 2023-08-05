@@ -1,27 +1,54 @@
-import React, { FC } from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
-import { flex1 } from '@styles/common';
-import { TransactionsList, WalletsList } from '../components';
-import { useWallets } from '../hooks';
+import React, { FC, useCallback, useMemo } from 'react';
+import { FlatList } from 'react-native';
+import { ListRenderItemInfo } from '@react-native/virtualized-lists/Lists/VirtualizedList';
+import { TransactionsHeader, TransactionsListItem } from '../components';
+import { useBalance } from '../hooks';
+import { Transaction } from '../types';
 
-interface Props {
-  style?: StyleProp<ViewStyle>;
-}
+const address = '5G145Vp65neFzsXJ7kCUomTSjmy2Yv5wKTFxHL69oHS5gBB2';
 
-const Wallets: FC<Props> = (props) => {
-  const { style } = props;
-  const { wallets, isLoading } = useWallets();
+const Wallets: FC = () => {
+  const {
+    balance,
+    isRefetching: isBalanceRefetching,
+    refetch: refetchBalance,
+    isLoading: isBalanceLoading,
+  } = useBalance(address);
+
+  const handleOnRefresh = useCallback(
+    () => Promise.all([refetchBalance()]),
+    [refetchBalance],
+  );
+
+  const isRefreshing = useMemo<boolean>(
+    () => isBalanceLoading || isBalanceRefetching,
+    [isBalanceLoading, isBalanceRefetching],
+  );
+
+  const renderItem = (info: ListRenderItemInfo<Transaction>) => {
+    const { item } = info;
+    return <TransactionsListItem transaction={item} onPress={console.log} />;
+  };
+
+  console.log('balance', balance);
 
   return (
-    <View style={[flex1, style]}>
-      <WalletsList wallets={wallets} />
-      <TransactionsList
-        transactions={[]}
-        onRefresh={() => {}}
-        isRefreshing={false}
-        onTransactionPress={() => {}}
-      />
-    </View>
+    <FlatList
+      ListHeaderComponent={
+        <TransactionsHeader
+          balanceInTokens={25}
+          balanceInDollars={25}
+          onSendPress={console.log}
+          onReceivePress={console.log}
+        />
+      }
+      keyExtractor={(item) => item.id.toString()}
+      scrollIndicatorInsets={{ right: 1 }}
+      onRefresh={handleOnRefresh}
+      data={[]}
+      refreshing={isRefreshing}
+      renderItem={renderItem}
+    />
   );
 };
 

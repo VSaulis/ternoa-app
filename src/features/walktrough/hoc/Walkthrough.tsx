@@ -6,13 +6,19 @@ import { Button } from '@common/components';
 import { useWalkthroughTranslations } from '@i18n/hooks';
 import Swiper from 'react-native-swiper';
 import { useAppDispatch } from '@core/redux-store/store';
-import { completeWalktrough } from '../slice';
+import { completeWalkthrough } from '../storage';
+import { setIsWalktroughCompleted } from '../slice';
 import { slides } from '../constants';
 import { PaginationDot, Slide } from '../components';
 
 const Walkthrough: FC = () => {
   const dispatch = useAppDispatch();
   const { t } = useWalkthroughTranslations();
+
+  const handleOnGetStartedPress = async () => {
+    await completeWalkthrough();
+    dispatch(setIsWalktroughCompleted(true));
+  };
 
   return (
     <View style={flex1}>
@@ -37,7 +43,7 @@ const Walkthrough: FC = () => {
           size="medium"
           label={t('Get Started')}
           variant="secondary"
-          onPress={() => dispatch(completeWalktrough())}
+          onPress={handleOnGetStartedPress}
         />
       </View>
     </View>

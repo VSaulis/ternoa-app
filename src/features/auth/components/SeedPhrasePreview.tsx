@@ -5,7 +5,7 @@ import { margin } from '@styles/darkTheme';
 import { GradientButton, Text, TextGradient } from '@common/components';
 import { useAuthTranslations } from '@i18n/hooks';
 import SeedPhrase from './SeedPhrase';
-import { slideContentStyle, slideFooterStyle } from '../styles';
+import { contentStyle, footerStyle } from '../styles';
 import { WalletCreationContext } from '../providers/WalletCreationProvider';
 
 interface Props {
@@ -20,7 +20,7 @@ const SeedPhrasePreview: FC<Props> = (props) => {
 
   return (
     <View style={[flex1, style]}>
-      <View style={[flex1, slideContentStyle]}>
+      <View style={[flex1, contentStyle]}>
         <TextGradient
           style={margin('bottom')('m')}
           fontWeight="semiBold"
@@ -38,7 +38,7 @@ const SeedPhrasePreview: FC<Props> = (props) => {
           <SeedPhrase onView={generateSeedPhrase} seedPhrase={seedPhrase} />
         </View>
       </View>
-      <View style={slideFooterStyle}>
+      <View style={footerStyle}>
         <GradientButton
           isDisabled={!seedPhrase}
           onPress={onNext}

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface State {
   isWalktroughCompleted: boolean;
@@ -12,11 +12,11 @@ const walktroughSlice = createSlice({
   name: 'walktrough',
   initialState,
   reducers: {
-    completeWalktrough: (state) => {
-      state.isWalktroughCompleted = true;
+    setIsWalktroughCompleted: (state, action: PayloadAction<boolean>) => {
+      state.isWalktroughCompleted = action.payload;
     },
   },
 });
 
-export const { completeWalktrough } = walktroughSlice.actions;
+export const { setIsWalktroughCompleted } = walktroughSlice.actions;
 export const { reducer } = walktroughSlice;

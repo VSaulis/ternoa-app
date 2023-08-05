@@ -17,7 +17,7 @@ import {
 } from '@common/components';
 import { Trans } from 'react-i18next';
 import { useAuthTranslations } from '@i18n/hooks';
-import { slideContentStyle, slideFooterStyle } from '../styles';
+import { contentStyle, footerStyle } from '../styles';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -31,7 +31,7 @@ const SeedPhraseDescription: FC<Props> = (props) => {
   return (
     <View style={[flex1, style]}>
       <ScrollView
-        contentContainerStyle={slideContentStyle}
+        contentContainerStyle={contentStyle}
         scrollIndicatorInsets={{ right: 1 }}>
         <View style={styles.header}>
           <TextGradient
@@ -110,7 +110,7 @@ const SeedPhraseDescription: FC<Props> = (props) => {
           )}
         </Text>
       </ScrollView>
-      <View style={slideFooterStyle}>
+      <View style={footerStyle}>
         <GradientButton
           onPress={onStart}
           size="medium"

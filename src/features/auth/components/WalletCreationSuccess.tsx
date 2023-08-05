@@ -4,7 +4,7 @@ import { center, flex1 } from '@styles/common';
 import { margin, padding } from '@styles/darkTheme';
 import { GradientButton, Text, TextGradient } from '@common/components';
 import { useAuthTranslations } from '@i18n/hooks';
-import { slideContentStyle, slideFooterStyle } from '../styles';
+import { contentStyle, footerStyle } from '../styles';
 
 const successIllustration = require('@assets/images/success.png');
 
@@ -13,7 +13,7 @@ const WalletCreationSuccess: FC = () => {
 
   return (
     <View style={flex1}>
-      <View style={[flex1, slideContentStyle]}>
+      <View style={[flex1, contentStyle]}>
         <View style={[center, margin('bottom')('l')]}>
           <Image width={255} height={255} source={successIllustration} />
         </View>
@@ -36,7 +36,7 @@ const WalletCreationSuccess: FC = () => {
           )}
         </Text>
       </View>
-      <View style={slideFooterStyle}>
+      <View style={footerStyle}>
         <GradientButton size="medium" variant="primary" label={t('Complete')} />
       </View>
     </View>

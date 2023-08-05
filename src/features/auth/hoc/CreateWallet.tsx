@@ -17,7 +17,7 @@ interface Props {
   onClose: () => void;
 }
 
-const CreateNewWallet: FC<Props> = (props) => {
+const CreateWallet: FC<Props> = (props) => {
   const { onClose } = props;
   const [currentStep, setCurrentStep] = useState<number>(0);
   const navigation = useNavigation<StackNavigationProp<AuthParamList>>();
@@ -67,4 +67,4 @@ const CreateNewWallet: FC<Props> = (props) => {
   );
 };
 
-export default CreateNewWallet;
+export default CreateWallet;

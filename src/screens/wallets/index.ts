@@ -1,1 +1,1 @@
-export { default as WalletsScreen } from './WalletsScreen';
+export { default as TransactionsScreen } from './TransactionsScreen';

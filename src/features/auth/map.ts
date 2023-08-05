@@ -4,6 +4,6 @@ import { ImportFromSeedFormData } from './types';
 export const mapImportFromSeedRequest = (
   formData: ImportFromSeedFormData,
 ): ImportFromSeedRequest => ({
-  password: formData.newPassword,
-  seedPhrase: formData.seedPhrase,
+  password: formData.password,
+  seedPhrase: formData.seed,
 });

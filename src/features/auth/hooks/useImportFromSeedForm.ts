@@ -4,11 +4,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useValidationsTranslations } from '@i18n/hooks';
 // @ts-ignore
 import { TFunction } from 'i18next';
-import { importWalletFromSeed } from '@utils/api';
+import { useMutation } from '@tanstack/react-query';
+import { AuthClient } from '@api/clients';
 import { ImportFromSeedFormData } from '../types';
 
 const initialFormData: ImportFromSeedFormData = {
-  seedPhrase: '',
+  seed: '',
   newPassword: '',
   confirmNewPassword: '',
   isFaceIdEnabled: true,
@@ -16,24 +17,30 @@ const initialFormData: ImportFromSeedFormData = {
 
 const getSchema = (t: TFunction) => {
   return yup.object().shape({
-    seedPhrase: yup.string().required(t('Field is required')),
+    seed: yup.string().required(t('Field is required')),
+    isFaceIdEnabled: yup.boolean().required(),
     newPassword: yup
       .string()
       .min(8, t('Must be at least {{count}} characters', { count: 8 }))
       .required(t('Field is required')),
-    isFaceIdEnabled: yup.boolean().required(),
     confirmNewPassword: yup
       .string()
       .required(t('Field is required'))
-      .oneOf([yup.ref('newPassword')], t('Passwords must match')),
+      .oneOf([yup.ref('password')], t('Passwords must match')),
   });
 };
 
 const useImportFromSeedForm = () => {
   const { t } = useValidationsTranslations();
 
-  const onSubmit = (formData: ImportFromSeedFormData) => {
-    importWalletFromSeed(formData.seedPhrase, formData.newPassword);
+  const { mutateAsync, isLoading: isSubmitting } = useMutation(
+    (formData: ImportFromSeedFormData) => {
+      return AuthClient.importAccount(formData.seed, formData.newPassword);
+    },
+  );
+
+  const onSubmit = async (formData: ImportFromSeedFormData) => {
+    await mutateAsync(formData);
   };
 
   const { control, handleSubmit } = useForm<ImportFromSeedFormData>({
@@ -41,7 +48,7 @@ const useImportFromSeedForm = () => {
     resolver: yupResolver(getSchema(t)),
   });
 
-  return { control, handleSubmit, onSubmit };
+  return { control, handleSubmit, onSubmit, isSubmitting };
 };
 
 export default useImportFromSeedForm;

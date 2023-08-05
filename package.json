@@ -25,6 +25,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.32.0",
     "axios": "^1.4.0",
+    "check-password-strength": "^2.0.7",
     "dayjs": "^1.11.9",
     "hex-to-rgba": "^2.0.1",
     "i18next": "^23.3.0",
@@ -44,6 +45,7 @@
     "react-native-switch": "^1.5.1",
     "react-redux": "^8.1.1",
     "redux": "^4.2.1",
+    "ternoa-js": "^1.5.3",
     "text-encoding-utf-8": "^1.0.2",
     "yup": "^1.2.0",
     "yup-password": "^0.2.2"

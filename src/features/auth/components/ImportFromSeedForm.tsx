@@ -1,32 +1,34 @@
 import React, { FC } from 'react';
 import { Linking, ScrollView, View } from 'react-native';
-import { GradientButton, Input, Switch, Text } from '@common/components';
-import { margin, padding } from '@styles/darkTheme';
+import { GradientButton, Input, Text } from '@common/components';
+import { margin } from '@styles/darkTheme';
 import { Control, Controller } from 'react-hook-form';
-import { flex1, rowCenter } from '@styles/common';
+import { flex1 } from '@styles/common';
 import { useAuthTranslations } from '@i18n/hooks';
 import { Trans } from 'react-i18next';
 import { TERMS_AND_CONDITIONS_URL } from '@env';
+import NewPasswordForm from './NewPasswordForm';
 import { ImportFromSeedFormData } from '../types';
+import { contentStyle, footerStyle } from '../styles';
 
 interface Props {
   control: Control<ImportFromSeedFormData>;
-  isConfirming?: boolean;
+  isSubmitting?: boolean;
   onSubmit: () => void;
 }
 
 const ImportFromSeedForm: FC<Props> = (props) => {
-  const { control, onSubmit, isConfirming = false } = props;
+  const { control, onSubmit, isSubmitting = false } = props;
   const { t } = useAuthTranslations();
 
   return (
-    <View style={[flex1, padding('top')('m')]}>
+    <View style={flex1}>
       <ScrollView
-        contentContainerStyle={padding('full')('l')}
+        contentContainerStyle={contentStyle}
         scrollIndicatorInsets={{ right: 1 }}>
         <Controller
           control={control}
-          name="seedPhrase"
+          name="seed"
           render={({ field: { ref: _, ...rest }, fieldState: { error } }) => (
             <Input
               {...rest}
@@ -37,52 +39,7 @@ const ImportFromSeedForm: FC<Props> = (props) => {
             />
           )}
         />
-        <Controller
-          control={control}
-          name="newPassword"
-          render={({ field: { ref: _, ...rest }, fieldState: { error } }) => (
-            <Input
-              {...rest}
-              label={t('New Password')}
-              textContentType="newPassword"
-              autoComplete="password-new"
-              secureTextEntry
-              help={t('Must be at least 8 characters')}
-              error={error?.message}
-              style={margin('bottom')('l')}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="confirmNewPassword"
-          render={({ field: { ref: _, ...rest }, fieldState: { error } }) => (
-            <Input
-              {...rest}
-              label={t('Confirm Password')}
-              style={margin('bottom')('l')}
-              textContentType="newPassword"
-              autoComplete="password-new"
-              error={error?.message}
-              secureTextEntry
-            />
-          )}
-        />
-        <View
-          style={[rowCenter, padding('vertical')('xs'), margin('bottom')('l')]}>
-          <Text
-            fontSize="m"
-            fontWeight="semiBold"
-            color="white"
-            style={[flex1, margin('right')('m')]}>
-            {t('Sign in with Face ID?')}
-          </Text>
-          <Controller
-            control={control}
-            name="isFaceIdEnabled"
-            render={({ field: { ref: _, ...rest } }) => <Switch {...rest} />}
-          />
-        </View>
+        <NewPasswordForm control={control} style={margin('bottom')('l')} />
         <Text
           fontSize="s"
           fontWeight="regular"
@@ -105,9 +62,9 @@ const ImportFromSeedForm: FC<Props> = (props) => {
           />
         </Text>
       </ScrollView>
-      <View style={[padding('horizontal')('l'), padding('bottom')('xxl')]}>
+      <View style={footerStyle}>
         <GradientButton
-          isDisabled={isConfirming}
+          isDisabled={isSubmitting}
           onPress={onSubmit}
           size="medium"
           variant="primary"

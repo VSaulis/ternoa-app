@@ -5,7 +5,7 @@ import { margin } from '@styles/darkTheme';
 import { Button, GradientButton, Text } from '@common/components';
 import { Trans } from 'react-i18next';
 import { useAuthTranslations } from '@i18n/hooks';
-import { slideContentStyle, slideFooterStyle } from '../styles';
+import { contentStyle, footerStyle } from '../styles';
 
 const safeSecurityIllustration = require('@assets/images/safe-security.png');
 
@@ -21,7 +21,7 @@ const SecureWalletDescription: FC<Props> = (props) => {
   return (
     <View style={[flex1, style]}>
       <ScrollView
-        contentContainerStyle={slideContentStyle}
+        contentContainerStyle={contentStyle}
         scrollIndicatorInsets={{ right: 1 }}>
         <View style={[center, margin('bottom')('xxl')]}>
           <Image width={295} height={295} source={safeSecurityIllustration} />
@@ -65,7 +65,7 @@ const SecureWalletDescription: FC<Props> = (props) => {
           label={t('Remind Me Later')}
         />
       </ScrollView>
-      <View style={slideFooterStyle}>
+      <View style={footerStyle}>
         <GradientButton
           onPress={onStart}
           size="medium"

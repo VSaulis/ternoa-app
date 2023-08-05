@@ -11,7 +11,7 @@ import {
 import { useAuthTranslations } from '@i18n/hooks';
 import { pickRandomIndex, pickRandomPhrases } from '@utils/crypto';
 import SeedPhraseSelect from './SeedPhraseSelect';
-import { slideContentStyle, slideFooterStyle } from '../styles';
+import { contentStyle, footerStyle } from '../styles';
 import { WalletCreationContext } from '../providers/WalletCreationProvider';
 
 interface Props {
@@ -70,7 +70,7 @@ const SeedPhraseConfirmation: FC<Props> = (props) => {
 
   return (
     <View style={[flex1, style]}>
-      <View style={[flex1, slideContentStyle]}>
+      <View style={[flex1, contentStyle]}>
         <TextGradient
           style={margin('bottom')('m')}
           fontWeight="semiBold"
@@ -105,7 +105,7 @@ const SeedPhraseConfirmation: FC<Props> = (props) => {
         </View>
         <SeedPhraseSelect options={options} onSelect={setSelectedPhrase} />
       </View>
-      <View style={slideFooterStyle}>
+      <View style={footerStyle}>
         <GradientButton
           isDisabled={!selectedPhrase}
           onPress={handleOnNext}

@@ -4,6 +4,7 @@ import {
   Checkbox,
   GradientButton,
   Input,
+  PasswordStrengthMeter,
   Switch,
   Text,
   TextGradient,
@@ -15,7 +16,7 @@ import { useAuthTranslations } from '@i18n/hooks';
 import { Trans } from 'react-i18next';
 import { TERMS_AND_CONDITIONS_URL } from '@env';
 import { CreateNewPasswordFormData } from '../types';
-import { slideContentStyle, slideFooterStyle } from '../styles';
+import { contentStyle, footerStyle } from '../styles';
 
 interface Props {
   control: Control<CreateNewPasswordFormData>;
@@ -29,7 +30,7 @@ const CreatePasswordForm: FC<Props> = (props) => {
   return (
     <View style={flex1}>
       <ScrollView
-        contentContainerStyle={slideContentStyle}
+        contentContainerStyle={contentStyle}
         scrollIndicatorInsets={{ right: 1 }}>
         <TextGradient
           style={margin('bottom')('xs')}
@@ -63,22 +64,10 @@ const CreatePasswordForm: FC<Props> = (props) => {
                 autoComplete="password-new"
                 secureTextEntry
               />
-              <Text
+              <PasswordStrengthMeter
                 style={[margin('bottom')('l'), padding('left')('m')]}
-                fontSize="xs"
-                fontWeight="regular"
-                color="gray12">
-                <Trans
-                  ns="auth"
-                  i18nKey="Password strength: {{strength}}"
-                  values={{ strength: 'Good' }}
-                  components={{
-                    highlighted: (
-                      <Text fontSize="xs" fontWeight="regular" color="green5" />
-                    ),
-                  }}
-                />
-              </Text>
+                password={rest.value}
+              />
             </>
           )}
         />
@@ -145,7 +134,7 @@ const CreatePasswordForm: FC<Props> = (props) => {
           )}
         />
       </ScrollView>
-      <View style={slideFooterStyle}>
+      <View style={footerStyle}>
         <GradientButton
           onPress={onSubmit}
           size="medium"

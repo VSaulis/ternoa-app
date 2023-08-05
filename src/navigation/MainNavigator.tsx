@@ -1,21 +1,21 @@
 import React, { FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { WalletsScreen } from '@screens';
-import { walletsRoute } from './types';
+import { TransactionsScreen } from '@screens';
+import { transactionsRoute } from './types';
 
 export type MainParamList = {
-  [walletsRoute]: undefined;
+  [transactionsRoute]: undefined;
 };
 
 const MainStack = createStackNavigator<MainParamList>();
 
 const MainNavigator: FC = () => {
   return (
-    <MainStack.Navigator initialRouteName={walletsRoute}>
+    <MainStack.Navigator initialRouteName={transactionsRoute}>
       <MainStack.Screen
         options={{ headerShown: false }}
-        name={walletsRoute}
-        component={WalletsScreen}
+        name={transactionsRoute}
+        component={TransactionsScreen}
       />
     </MainStack.Navigator>
   );

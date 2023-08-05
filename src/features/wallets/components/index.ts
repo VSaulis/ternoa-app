@@ -1,2 +1,3 @@
 export { default as TransactionsList } from './TransactionsList';
-export { default as WalletsList } from './WalletsList';
+export { default as TransactionsHeader } from './TransactionsHeader';
+export { default as TransactionsListItem } from './TransactionsListItem';

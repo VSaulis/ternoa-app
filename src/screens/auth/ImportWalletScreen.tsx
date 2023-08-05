@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
-import { WalletsScreenProps } from '@navigation/types';
+import { ImportWalletScreenProps } from '@navigation/types';
 import { ScreenContainer } from '@common/components';
 import { SafeAreaView } from 'react-native';
 import { flex1 } from '@styles/common';
-import { Wallets } from '@features/wallets/hoc';
+import { ImportWallet } from '@features/auth/hoc';
 
-const WalletsScreen: FC<WalletsScreenProps> = () => {
+const ImportWalletScreen: FC<ImportWalletScreenProps> = () => {
   return (
     <ScreenContainer>
       <SafeAreaView style={flex1}>
-        <Wallets />
+        <ImportWallet />
       </SafeAreaView>
     </ScreenContainer>
   );
 };
 
-export default WalletsScreen;
+export default ImportWalletScreen;

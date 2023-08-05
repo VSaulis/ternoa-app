@@ -6,9 +6,12 @@ import { AuthParamList } from './AuthNavigator';
 export type MainNavigatorRoute = 'Main';
 export const mainNavigatorRoute: MainNavigatorRoute = 'Main';
 
-export type WalletsRoute = 'Wallets';
-export const walletsRoute: WalletsRoute = 'Wallets';
-export type WalletsScreenProps = StackScreenProps<MainParamList, WalletsRoute>;
+export type TransactionsRoute = 'Transactions';
+export const transactionsRoute: TransactionsRoute = 'Transactions';
+export type TransactionsScreenProps = StackScreenProps<
+  MainParamList,
+  TransactionsRoute
+>;
 
 export type AuthNavigatorRoute = 'Auth';
 export const authNavigatorRoute: AuthNavigatorRoute = 'Auth';
@@ -27,11 +30,11 @@ export type WalletSetupScreenProps = StackScreenProps<
   WalletSetupRoute
 >;
 
-export type ImportFromSeedRoute = 'ImportFromSeed';
-export const importFromSeedRoute: ImportFromSeedRoute = 'ImportFromSeed';
-export type ImportFromSeedScreenProps = StackScreenProps<
+export type ImportWalletRoute = 'ImportWallet';
+export const importWalletRoute: ImportWalletRoute = 'ImportWallet';
+export type ImportWalletScreenProps = StackScreenProps<
   AuthParamList,
-  ImportFromSeedRoute
+  ImportWalletRoute
 >;
 
 export type CreateNewWalletRoute = 'CreateNewWallet';
