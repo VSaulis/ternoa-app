@@ -12,17 +12,17 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		21AC149004C046048A11E5B2 /* Archivo-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05B6B03D1549435F8672F01D /* Archivo-ExtraLight.ttf */; };
+		3DB9E85CB3D142EBA84FC11F /* Archivo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6027C4A398E44C49BD4EB5A7 /* Archivo-Regular.ttf */; };
+		6C3081CD06C94140BCAB2D26 /* Archivo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D819BED89AC41D59C8CD7F8 /* Archivo-Bold.ttf */; };
+		746264827319432F90EE622F /* Archivo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C8036A1BAB14318A3B387D0 /* Archivo-Black.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-Ternoa-TernoaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Ternoa-TernoaTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		746264827319432F90EE622F /* Archivo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C8036A1BAB14318A3B387D0 /* Archivo-Black.ttf */; };
-		6C3081CD06C94140BCAB2D26 /* Archivo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D819BED89AC41D59C8CD7F8 /* Archivo-Bold.ttf */; };
 		86BB9E700EB947ABA8ADA2ED /* Archivo-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C3D2C119D594C7E9415ACF4 /* Archivo-ExtraBold.ttf */; };
-		21AC149004C046048A11E5B2 /* Archivo-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05B6B03D1549435F8672F01D /* Archivo-ExtraLight.ttf */; };
-		E53BF9BFEFD9442688A58D96 /* Archivo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18F6E74BC834435EAFD0489C /* Archivo-Light.ttf */; };
-		DDFE07684DE04EDA8619F716 /* Archivo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49E703D1A43A42978974D849 /* Archivo-Medium.ttf */; };
-		3DB9E85CB3D142EBA84FC11F /* Archivo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6027C4A398E44C49BD4EB5A7 /* Archivo-Regular.ttf */; };
-		9613211A89CB4A9FA8E090A1 /* Archivo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2263F9DD61843709908A40A /* Archivo-SemiBold.ttf */; };
 		92C43846DD1043B39304EAA7 /* Archivo-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14AF0600E7EE4F659F6C1797 /* Archivo-Thin.ttf */; };
+		9613211A89CB4A9FA8E090A1 /* Archivo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2263F9DD61843709908A40A /* Archivo-SemiBold.ttf */; };
+		DDFE07684DE04EDA8619F716 /* Archivo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49E703D1A43A42978974D849 /* Archivo-Medium.ttf */; };
+		E53BF9BFEFD9442688A58D96 /* Archivo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18F6E74BC834435EAFD0489C /* Archivo-Light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,29 +39,29 @@
 		00E356EE1AD99517003FC87E /* TernoaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TernoaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* TernoaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TernoaTests.m; sourceTree = "<group>"; };
+		05B6B03D1549435F8672F01D /* Archivo-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-ExtraLight.ttf"; path = "../assets/fonts/Archivo-ExtraLight.ttf"; sourceTree = "<group>"; };
+		0D819BED89AC41D59C8CD7F8 /* Archivo-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-Bold.ttf"; path = "../assets/fonts/Archivo-Bold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Ternoa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ternoa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Ternoa/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Ternoa/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Ternoa/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Ternoa/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Ternoa/main.m; sourceTree = "<group>"; };
+		14AF0600E7EE4F659F6C1797 /* Archivo-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-Thin.ttf"; path = "../assets/fonts/Archivo-Thin.ttf"; sourceTree = "<group>"; };
+		18F6E74BC834435EAFD0489C /* Archivo-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-Light.ttf"; path = "../assets/fonts/Archivo-Light.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-Ternoa-TernoaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ternoa-TernoaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C3D2C119D594C7E9415ACF4 /* Archivo-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-ExtraBold.ttf"; path = "../assets/fonts/Archivo-ExtraBold.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-Ternoa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ternoa.debug.xcconfig"; path = "Target Support Files/Pods-Ternoa/Pods-Ternoa.debug.xcconfig"; sourceTree = "<group>"; };
+		49E703D1A43A42978974D849 /* Archivo-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-Medium.ttf"; path = "../assets/fonts/Archivo-Medium.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Ternoa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ternoa.release.xcconfig"; path = "Target Support Files/Pods-Ternoa/Pods-Ternoa.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Ternoa-TernoaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ternoa-TernoaTests.debug.xcconfig"; path = "Target Support Files/Pods-Ternoa-TernoaTests/Pods-Ternoa-TernoaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Ternoa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ternoa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6027C4A398E44C49BD4EB5A7 /* Archivo-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-Regular.ttf"; path = "../assets/fonts/Archivo-Regular.ttf"; sourceTree = "<group>"; };
+		7C8036A1BAB14318A3B387D0 /* Archivo-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-Black.ttf"; path = "../assets/fonts/Archivo-Black.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Ternoa/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Ternoa-TernoaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ternoa-TernoaTests.release.xcconfig"; path = "Target Support Files/Pods-Ternoa-TernoaTests/Pods-Ternoa-TernoaTests.release.xcconfig"; sourceTree = "<group>"; };
+		E2263F9DD61843709908A40A /* Archivo-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Archivo-SemiBold.ttf"; path = "../assets/fonts/Archivo-SemiBold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		7C8036A1BAB14318A3B387D0 /* Archivo-Black.ttf */ = {isa = PBXFileReference; name = "Archivo-Black.ttf"; path = "../assets/fonts/Archivo-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0D819BED89AC41D59C8CD7F8 /* Archivo-Bold.ttf */ = {isa = PBXFileReference; name = "Archivo-Bold.ttf"; path = "../assets/fonts/Archivo-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1C3D2C119D594C7E9415ACF4 /* Archivo-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Archivo-ExtraBold.ttf"; path = "../assets/fonts/Archivo-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		05B6B03D1549435F8672F01D /* Archivo-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Archivo-ExtraLight.ttf"; path = "../assets/fonts/Archivo-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		18F6E74BC834435EAFD0489C /* Archivo-Light.ttf */ = {isa = PBXFileReference; name = "Archivo-Light.ttf"; path = "../assets/fonts/Archivo-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		49E703D1A43A42978974D849 /* Archivo-Medium.ttf */ = {isa = PBXFileReference; name = "Archivo-Medium.ttf"; path = "../assets/fonts/Archivo-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6027C4A398E44C49BD4EB5A7 /* Archivo-Regular.ttf */ = {isa = PBXFileReference; name = "Archivo-Regular.ttf"; path = "../assets/fonts/Archivo-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E2263F9DD61843709908A40A /* Archivo-SemiBold.ttf */ = {isa = PBXFileReference; name = "Archivo-SemiBold.ttf"; path = "../assets/fonts/Archivo-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		14AF0600E7EE4F659F6C1797 /* Archivo-Thin.ttf */ = {isa = PBXFileReference; name = "Archivo-Thin.ttf"; path = "../assets/fonts/Archivo-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +112,23 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = Ternoa;
+			sourceTree = "<group>";
+		};
+		2282138039DF4B2388996155 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7C8036A1BAB14318A3B387D0 /* Archivo-Black.ttf */,
+				0D819BED89AC41D59C8CD7F8 /* Archivo-Bold.ttf */,
+				1C3D2C119D594C7E9415ACF4 /* Archivo-ExtraBold.ttf */,
+				05B6B03D1549435F8672F01D /* Archivo-ExtraLight.ttf */,
+				18F6E74BC834435EAFD0489C /* Archivo-Light.ttf */,
+				49E703D1A43A42978974D849 /* Archivo-Medium.ttf */,
+				6027C4A398E44C49BD4EB5A7 /* Archivo-Regular.ttf */,
+				E2263F9DD61843709908A40A /* Archivo-SemiBold.ttf */,
+				14AF0600E7EE4F659F6C1797 /* Archivo-Thin.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -166,23 +183,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		2282138039DF4B2388996155 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				7C8036A1BAB14318A3B387D0 /* Archivo-Black.ttf */,
-				0D819BED89AC41D59C8CD7F8 /* Archivo-Bold.ttf */,
-				1C3D2C119D594C7E9415ACF4 /* Archivo-ExtraBold.ttf */,
-				05B6B03D1549435F8672F01D /* Archivo-ExtraLight.ttf */,
-				18F6E74BC834435EAFD0489C /* Archivo-Light.ttf */,
-				49E703D1A43A42978974D849 /* Archivo-Medium.ttf */,
-				6027C4A398E44C49BD4EB5A7 /* Archivo-Regular.ttf */,
-				E2263F9DD61843709908A40A /* Archivo-SemiBold.ttf */,
-				14AF0600E7EE4F659F6C1797 /* Archivo-Thin.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -609,7 +609,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -637,12 +637,14 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -680,7 +682,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -700,12 +702,14 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
