@@ -10,6 +10,7 @@ import {
 import { WalktroughScreen } from '@screens';
 import { useAppSelector } from '@core/redux-store/store';
 import { selectIsWalktroughCompleted } from '@features/walktrough/selectors';
+import { selectIsHasAddress } from '@features/wallets/selectors';
 import AuthNavigator, { AuthParamList } from './AuthNavigator';
 import MainNavigator, { MainParamList } from './MainNavigator';
 import {
@@ -33,6 +34,7 @@ const RootStack = createStackNavigator<RootParamList>();
 
 const RootNavigator: FC = () => {
   const isWalktroughCompleted = useAppSelector(selectIsWalktroughCompleted);
+  const isHasAddress = useAppSelector(selectIsHasAddress);
 
   return (
     <NavigationContainer theme={theme}>
@@ -46,14 +48,17 @@ const RootNavigator: FC = () => {
               component={WalktroughScreen}
             />
           )}
-          <RootStack.Screen
-            name={authNavigatorRoute}
-            component={AuthNavigator}
-          />
-          <RootStack.Screen
-            name={mainNavigatorRoute}
-            component={MainNavigator}
-          />
+          {isHasAddress ? (
+            <RootStack.Screen
+              name={mainNavigatorRoute}
+              component={MainNavigator}
+            />
+          ) : (
+            <RootStack.Screen
+              name={authNavigatorRoute}
+              component={AuthNavigator}
+            />
+          )}
         </RootStack.Group>
       </RootStack.Navigator>
     </NavigationContainer>

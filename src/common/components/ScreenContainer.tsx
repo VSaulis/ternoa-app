@@ -1,5 +1,11 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  SafeAreaView,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { flex1 } from '@styles/common';
 import { colors } from '@styles/darkTheme';
 
@@ -10,7 +16,11 @@ interface Props {
 const ScreenContainer: FC<PropsWithChildren<Props>> = (props) => {
   const { children, style } = props;
 
-  return <View style={[styles.container, style]}>{children}</View>;
+  return (
+    <View style={[styles.container, style]}>
+      <SafeAreaView style={flex1}>{children}</SafeAreaView>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

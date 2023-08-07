@@ -4,23 +4,23 @@ import { colors, padding, sizes } from '@styles/darkTheme';
 import { center } from '@styles/common';
 import hexToRgba from 'hex-to-rgba';
 import { Text } from '@common/components';
-import SeedPhraseOverlay from './SeedPhraseOverlay';
-import { dummySeedPhrase } from '../constants';
+import { seedToSeedPhrases } from '@utils/crypto';
+import SeedOverlay from './SeedOverlay';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
-  seedPhrase: string[] | null;
+  seed: string;
   onView: () => void;
+  isVisible: boolean;
 }
 
-const SeedPhrase: FC<Props> = (props) => {
-  const { seedPhrase, style, onView } = props;
-  const visibleSeedPhrase = seedPhrase ?? dummySeedPhrase;
+const Seed: FC<Props> = (props) => {
+  const { seed, style, onView, isVisible } = props;
 
   return (
     <View style={[styles.container, style]}>
       <View style={styles.phraseContainer}>
-        {visibleSeedPhrase.map((phrase, index) => (
+        {seedToSeedPhrases(seed).map((phrase, index) => (
           <View key={phrase} style={styles.phraseWrapper}>
             <View style={styles.phrase}>
               <Text fontSize="s" fontWeight="regular" color="white">{`${
@@ -30,8 +30,8 @@ const SeedPhrase: FC<Props> = (props) => {
           </View>
         ))}
       </View>
-      {!seedPhrase && (
-        <SeedPhraseOverlay style={StyleSheet.absoluteFill} onView={onView} />
+      {!isVisible && (
+        <SeedOverlay style={StyleSheet.absoluteFill} onView={onView} />
       )}
     </View>
   );
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SeedPhrase;
+export default Seed;

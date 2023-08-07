@@ -5,11 +5,23 @@ import { margin, padding } from '@styles/darkTheme';
 import { GradientButton, Text, TextGradient } from '@common/components';
 import { useAuthTranslations } from '@i18n/hooks';
 import { contentStyle, footerStyle } from '../styles';
+import { useCreateWallet } from '../hooks';
 
 const successIllustration = require('@assets/images/success.png');
 
-const WalletCreationSuccess: FC = () => {
+interface Props {
+  seed: string;
+  password: string;
+}
+
+const WalletCreationSuccess: FC<Props> = (props) => {
+  const { seed, password } = props;
   const { t } = useAuthTranslations();
+  const { createWallet, isSubmitting } = useCreateWallet();
+
+  const handleOnComplete = () => {
+    return createWallet({ seed, password });
+  };
 
   return (
     <View style={flex1}>
@@ -37,7 +49,13 @@ const WalletCreationSuccess: FC = () => {
         </Text>
       </View>
       <View style={footerStyle}>
-        <GradientButton size="medium" variant="primary" label={t('Complete')} />
+        <GradientButton
+          onPress={handleOnComplete}
+          isDisabled={isSubmitting}
+          size="medium"
+          variant="primary"
+          label={t('Complete')}
+        />
       </View>
     </View>
   );

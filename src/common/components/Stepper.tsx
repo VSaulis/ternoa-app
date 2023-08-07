@@ -15,18 +15,18 @@ const Stepper: FC<Props> = (props) => {
   const { style, currentStep, stepsCount } = props;
 
   const progressBarWidth = useMemo<number>(
-    () => (currentStep / stepsCount) * 100,
+    () => ((currentStep - 1) / (stepsCount - 1)) * 100,
     [currentStep, stepsCount],
   );
 
   return (
     <View style={[styles.container, style]}>
       <View style={styles.progressBarContainer}>
-        <View style={[styles.progressBar, { width: progressBarWidth }]} />
+        <View style={[styles.progressBar, { width: `${progressBarWidth}%` }]} />
       </View>
       {range(stepsCount).map((page) => (
         <Dot
-          color={page <= currentStep ? 'primary5' : 'gray21'}
+          color={page < currentStep ? 'primary5' : 'gray21'}
           size={8}
           key={page}
         />

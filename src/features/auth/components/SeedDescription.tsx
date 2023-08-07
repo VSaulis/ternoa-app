@@ -24,7 +24,7 @@ interface Props {
   onStart: () => void;
 }
 
-const SeedPhraseDescription: FC<Props> = (props) => {
+const SeedDescription: FC<Props> = (props) => {
   const { style, onStart } = props;
   const { t } = useAuthTranslations();
 
@@ -131,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SeedPhraseDescription;
+export default SeedDescription;

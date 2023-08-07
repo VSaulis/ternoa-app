@@ -1,6 +1,9 @@
 import { colors, padding, typographies } from '@styles/darkTheme';
 import { flexEnd, flexStart, rowCenter } from '@styles/common';
-import { StackNavigationOptions } from '@react-navigation/stack';
+import {
+  StackNavigationOptions,
+  TransitionPresets,
+} from '@react-navigation/stack';
 import { TextStyle, ViewStyle } from 'react-native';
 import { StackHeaderLeft } from './components';
 
@@ -42,4 +45,5 @@ export const getStackScreenOptions = (top: number): StackNavigationOptions => ({
   headerRightContainerStyle: getHeaderRightContainerStyle(top),
   headerTitleContainerStyle: getHeaderTitleContainerStyle(top),
   headerStyle: getHeaderStyle(top),
+  ...TransitionPresets.SlideFromRightIOS,
 });

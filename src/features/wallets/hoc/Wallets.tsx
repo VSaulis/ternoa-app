@@ -2,7 +2,7 @@ import React, { FC, useCallback, useMemo } from 'react';
 import { FlatList } from 'react-native';
 import { ListRenderItemInfo } from '@react-native/virtualized-lists/Lists/VirtualizedList';
 import { TransactionsHeader, TransactionsListItem } from '../components';
-import { useBalance } from '../hooks';
+import { useBalance, useTransactions } from '../hooks';
 import { Transaction } from '../types';
 
 const address = '5G145Vp65neFzsXJ7kCUomTSjmy2Yv5wKTFxHL69oHS5gBB2';
@@ -15,14 +15,30 @@ const Wallets: FC = () => {
     isLoading: isBalanceLoading,
   } = useBalance(address);
 
+  const {
+    transactions,
+    isRefetching: isTransactionsRefetching,
+    refetch: refetchTransactions,
+    isLoading: isTransactionsLoading,
+  } = useTransactions(address);
+
   const handleOnRefresh = useCallback(
-    () => Promise.all([refetchBalance()]),
-    [refetchBalance],
+    () => Promise.all([refetchBalance(), refetchTransactions()]),
+    [refetchBalance, refetchTransactions],
   );
 
   const isRefreshing = useMemo<boolean>(
-    () => isBalanceLoading || isBalanceRefetching,
-    [isBalanceLoading, isBalanceRefetching],
+    () =>
+      isBalanceLoading ||
+      isBalanceRefetching ||
+      isTransactionsRefetching ||
+      isTransactionsLoading,
+    [
+      isBalanceLoading,
+      isBalanceRefetching,
+      isTransactionsRefetching,
+      isTransactionsLoading,
+    ],
   );
 
   const renderItem = (info: ListRenderItemInfo<Transaction>) => {
@@ -30,7 +46,7 @@ const Wallets: FC = () => {
     return <TransactionsListItem transaction={item} onPress={console.log} />;
   };
 
-  console.log('balance', balance);
+  console.log('transactions', transactions);
 
   return (
     <FlatList

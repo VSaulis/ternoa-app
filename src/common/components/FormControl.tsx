@@ -1,17 +1,25 @@
 import React, { FC, PropsWithChildren, useMemo } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { colors, margin, sizes } from '@styles/darkTheme';
 import hexToRgba from 'hex-to-rgba';
 import Text from './Text';
 
 export interface FormControlProps {
   style?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
+  errorStyle?: StyleProp<TextStyle>;
   error?: string;
   help?: string;
 }
 
 const FormControl: FC<PropsWithChildren<FormControlProps>> = (props) => {
-  const { style, error, help, children } = props;
+  const { style, error, help, children, containerStyle, errorStyle } = props;
 
   const borderColor = useMemo<string>(
     () => (error ? colors.red5 : colors.gray22),
@@ -20,7 +28,9 @@ const FormControl: FC<PropsWithChildren<FormControlProps>> = (props) => {
 
   return (
     <View style={style}>
-      <View style={[styles.container, { borderColor }]}>{children}</View>
+      <View style={[styles.container, { borderColor }, containerStyle]}>
+        {children}
+      </View>
       {!!help && (
         <Text
           fontWeight="regular"
@@ -34,7 +44,7 @@ const FormControl: FC<PropsWithChildren<FormControlProps>> = (props) => {
         <Text
           fontWeight="regular"
           fontSize="xs"
-          style={[margin('top')('xxs'), margin('left')('m')]}
+          style={[margin('top')('xxs'), margin('left')('m'), errorStyle]}
           color="red5">
           {error}
         </Text>

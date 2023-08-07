@@ -1,26 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import isString from 'lodash/isString';
+import { tryParseJson } from './json';
 
-const tryParseJson = <T>(
-  value: string,
-): { success: boolean; data: T | null } => {
-  try {
-    const data = JSON.parse(value);
-    return { success: true, data };
-  } catch (error) {
-    return { success: false, data: null };
-  }
-};
-
-export const writeAsync = async <T = string>(
-  key: string,
-  value: T,
-): Promise<void> => {
+export const writeAsync = async <T = string>(key: string, value: T) => {
   const formattedValue = isString(value) ? value : JSON.stringify(value);
   await AsyncStorage.setItem(key, formattedValue);
 };
 
-export const readAsync = async <T = string>(key: string): Promise<T | null> => {
+export const readAsync = async <T = string>(key: string) => {
   const value = await AsyncStorage.getItem(key);
   if (!value) {
     return null;
@@ -29,6 +16,6 @@ export const readAsync = async <T = string>(key: string): Promise<T | null> => {
   return parsedJson.success ? parsedJson.data : (value as unknown as T);
 };
 
-export const removeAsync = async (key: string): Promise<void> => {
+export const removeAsync = async (key: string) => {
   await AsyncStorage.removeItem(key);
 };

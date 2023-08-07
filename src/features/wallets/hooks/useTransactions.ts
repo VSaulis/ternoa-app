@@ -1,26 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
-import { TernoaClient } from '@api/clients';
 import { useRefetch } from '@common/hooks';
 
 export const getQueryKey = (address: string) => {
-  return ['balance', address];
+  return ['transactions', address];
 };
 
-const useBalance = (address: string) => {
+const useTransactions = (address: string) => {
   const {
     isLoading,
     refetch: onRefetch,
     data,
-  } = useQuery(getQueryKey(address), () => TernoaClient.getBalance(address));
+  } = useQuery(getQueryKey(address), () => []);
 
   const { refetch, isRefetching } = useRefetch(onRefetch);
 
   return {
-    balance: data,
+    transactions: data ?? [],
     isLoading,
     isRefetching,
     refetch,
   };
 };
 
-export default useBalance;
+export default useTransactions;

@@ -2,23 +2,17 @@ import React, { FC } from 'react';
 import { Linking, ScrollView, View } from 'react-native';
 import { GradientButton, Input, Text } from '@common/components';
 import { margin } from '@styles/darkTheme';
-import { Control, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { flex1 } from '@styles/common';
 import { useAuthTranslations } from '@i18n/hooks';
 import { Trans } from 'react-i18next';
 import { TERMS_AND_CONDITIONS_URL } from '@env';
-import NewPasswordForm from './NewPasswordForm';
-import { ImportFromSeedFormData } from '../types';
+import PasswordForm from './PasswordForm';
 import { contentStyle, footerStyle } from '../styles';
+import { useImportFromSeed } from '../hooks';
 
-interface Props {
-  control: Control<ImportFromSeedFormData>;
-  isSubmitting?: boolean;
-  onSubmit: () => void;
-}
-
-const ImportFromSeedForm: FC<Props> = (props) => {
-  const { control, onSubmit, isSubmitting = false } = props;
+const ImportFromSeedForm: FC = () => {
+  const { control, handleSubmit, onSubmit, isSubmitting } = useImportFromSeed();
   const { t } = useAuthTranslations();
 
   return (
@@ -39,7 +33,7 @@ const ImportFromSeedForm: FC<Props> = (props) => {
             />
           )}
         />
-        <NewPasswordForm control={control} style={margin('bottom')('l')} />
+        <PasswordForm control={control} style={margin('bottom')('l')} />
         <Text
           fontSize="s"
           fontWeight="regular"
@@ -65,7 +59,7 @@ const ImportFromSeedForm: FC<Props> = (props) => {
       <View style={footerStyle}>
         <GradientButton
           isDisabled={isSubmitting}
-          onPress={onSubmit}
+          onPress={handleSubmit(onSubmit)}
           size="medium"
           variant="primary"
           label={t('Import')}

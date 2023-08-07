@@ -12,7 +12,5 @@ export interface Transaction {
 }
 
 export interface Wallet {
-  id: number;
-  balanceInTokens: number;
-  balanceInDollars: number;
+  address: string;
 }

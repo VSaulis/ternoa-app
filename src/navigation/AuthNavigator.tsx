@@ -1,8 +1,12 @@
 import React, { FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
-  CreateNewWalletScreen,
+  CreatePasswordScreen,
   ImportWalletScreen,
+  SecureWalletDescriptionScreen,
+  SeedConfirmationScreen,
+  SeedDescriptionScreen,
+  SeedPreviewScreen,
   WalletCreationSuccessScreen,
   WalletSetupScreen,
 } from '@screens';
@@ -10,8 +14,12 @@ import { getStackScreenOptions } from '@navigation/options';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigationTranslations } from '@i18n/hooks';
 import {
-  createNewWalletRoute,
+  createPasswordRoute,
   importWalletRoute,
+  secureWalletDescriptionRoute,
+  seedConfirmationRoute,
+  seedDescriptionRoute,
+  seedPreviewRoute,
   walletCreationSuccessRoute,
   walletSetupRoute,
 } from './types';
@@ -19,8 +27,12 @@ import {
 export type AuthParamList = {
   [walletSetupRoute]: undefined;
   [importWalletRoute]: undefined;
-  [createNewWalletRoute]: undefined;
-  [walletCreationSuccessRoute]: undefined;
+  [createPasswordRoute]: undefined;
+  [secureWalletDescriptionRoute]: { password: string };
+  [seedDescriptionRoute]: { password: string };
+  [seedPreviewRoute]: { password: string };
+  [seedConfirmationRoute]: { seed: string; password: string };
+  [walletCreationSuccessRoute]: { seed: string; password: string };
 };
 
 const AuthStack = createStackNavigator<AuthParamList>();
@@ -45,13 +57,33 @@ const AuthNavigator: FC = () => {
       />
       <AuthStack.Screen
         options={{ headerShown: false }}
-        name={createNewWalletRoute}
-        component={CreateNewWalletScreen}
+        name={walletCreationSuccessRoute}
+        component={WalletCreationSuccessScreen}
       />
       <AuthStack.Screen
         options={{ headerShown: false }}
-        name={walletCreationSuccessRoute}
-        component={WalletCreationSuccessScreen}
+        name={createPasswordRoute}
+        component={CreatePasswordScreen}
+      />
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name={secureWalletDescriptionRoute}
+        component={SecureWalletDescriptionScreen}
+      />
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name={seedDescriptionRoute}
+        component={SeedDescriptionScreen}
+      />
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name={seedPreviewRoute}
+        component={SeedPreviewScreen}
+      />
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name={seedConfirmationRoute}
+        component={SeedConfirmationScreen}
       />
     </AuthStack.Navigator>
   );

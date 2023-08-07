@@ -1,4 +1,3 @@
-import * as WalletsClient from './wallets';
-import * as AuthClient from './auth';
+import * as TernoaClient from './ternoa';
 
-export { WalletsClient, AuthClient };
+export { TernoaClient };

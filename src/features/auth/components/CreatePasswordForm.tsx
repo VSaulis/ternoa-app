@@ -3,28 +3,26 @@ import { Linking, ScrollView, View } from 'react-native';
 import {
   Checkbox,
   GradientButton,
-  Input,
-  PasswordStrengthMeter,
-  Switch,
   Text,
   TextGradient,
 } from '@common/components';
 import { margin, padding } from '@styles/darkTheme';
-import { Control, Controller } from 'react-hook-form';
-import { flex1, rowCenter, rowStart } from '@styles/common';
+import { Controller } from 'react-hook-form';
+import { flex1 } from '@styles/common';
 import { useAuthTranslations } from '@i18n/hooks';
 import { Trans } from 'react-i18next';
 import { TERMS_AND_CONDITIONS_URL } from '@env';
-import { CreateNewPasswordFormData } from '../types';
+import PasswordForm from './PasswordForm';
+import { useCreatePassword } from '../hooks';
 import { contentStyle, footerStyle } from '../styles';
 
 interface Props {
-  control: Control<CreateNewPasswordFormData>;
-  onSubmit: () => void;
+  onComplete: (password: string) => void;
 }
 
 const CreatePasswordForm: FC<Props> = (props) => {
-  const { control, onSubmit } = props;
+  const { onComplete } = props;
+  const { onSubmit, handleSubmit, control } = useCreatePassword(onComplete);
   const { t } = useAuthTranslations();
 
   return (
@@ -50,93 +48,44 @@ const CreatePasswordForm: FC<Props> = (props) => {
             'This password will unlock your Metamask wallet only on this service',
           )}
         </Text>
-        <Controller
-          control={control}
-          name="newPassword"
-          render={({ field: { ref: _, ...rest }, fieldState: { error } }) => (
-            <>
-              <Input
-                {...rest}
-                error={error?.message}
-                label={t('New Password')}
-                style={margin('bottom')('xxs')}
-                textContentType="newPassword"
-                autoComplete="password-new"
-                secureTextEntry
-              />
-              <PasswordStrengthMeter
-                style={[margin('bottom')('l'), padding('left')('m')]}
-                password={rest.value}
-              />
-            </>
-          )}
-        />
-        <Controller
-          control={control}
-          name="confirmNewPassword"
-          render={({ field: { ref: _, ...rest }, fieldState: { error } }) => (
-            <Input
-              {...rest}
-              error={error?.message}
-              label={t('Confirm Password')}
-              style={margin('bottom')('l')}
-              textContentType="newPassword"
-              autoComplete="password-new"
-              secureTextEntry
-            />
-          )}
-        />
-        <View
-          style={[rowCenter, padding('vertical')('xs'), margin('bottom')('l')]}>
-          <Text
-            fontSize="m"
-            fontWeight="semiBold"
-            color="white"
-            style={[flex1, margin('right')('m')]}>
-            {t('Sign in with Face ID?')}
-          </Text>
-          <Controller
-            control={control}
-            name="isFaceIdEnabled"
-            render={({ field: { ref: _, ...rest } }) => <Switch {...rest} />}
-          />
-        </View>
+        <PasswordForm control={control} style={margin('bottom')('l')} />
         <Controller
           control={control}
           name="isAgreementChecked"
-          render={({ field: { onChange, value } }) => (
-            <View style={[rowStart, margin('bottom')('l')]}>
-              <Checkbox
-                onChange={onChange}
-                isChecked={value}
-                size={24}
-                style={margin('right')('xs')}
-              />
-              <Text fontWeight="regular" fontSize="s" color="white">
-                <Trans
-                  ns="auth"
-                  i18nKey="I understand that DeGe cannot recover this password for me. Learn more"
-                  components={{
-                    highlighted: (
-                      <Text
-                        fontWeight="regular"
-                        fontSize="s"
-                        onPress={() =>
-                          Linking.openURL(TERMS_AND_CONDITIONS_URL)
-                        }
-                        color="primary5"
-                      />
-                    ),
-                  }}
-                />
-              </Text>
-            </View>
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <Checkbox
+              error={error?.message}
+              style={margin('bottom')('l')}
+              onChange={onChange}
+              isChecked={value}
+              size={24}
+              label={
+                <Text fontWeight="regular" fontSize="s" color="white">
+                  <Trans
+                    ns="auth"
+                    i18nKey="I understand that DeGe cannot recover this password for me. Learn more"
+                    components={{
+                      highlighted: (
+                        <Text
+                          fontWeight="regular"
+                          fontSize="s"
+                          onPress={() =>
+                            Linking.openURL(TERMS_AND_CONDITIONS_URL)
+                          }
+                          color="primary5"
+                        />
+                      ),
+                    }}
+                  />
+                </Text>
+              }
+            />
           )}
         />
       </ScrollView>
       <View style={footerStyle}>
         <GradientButton
-          onPress={onSubmit}
+          onPress={handleSubmit(onSubmit)}
           size="medium"
           variant="primary"
           label={t('Create Password')}

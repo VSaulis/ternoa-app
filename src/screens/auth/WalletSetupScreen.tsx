@@ -1,25 +1,29 @@
 import React, { FC } from 'react';
 import {
-  createNewWalletRoute,
+  createPasswordRoute,
   importWalletRoute,
   WalletSetupScreenProps,
 } from '@navigation/types';
 import { ScreenContainer } from '@common/components';
-import { SafeAreaView } from 'react-native';
-import { flex1 } from '@styles/common';
 import { WalletSetup } from '@features/auth/components';
 
 const WalletSetupScreen: FC<WalletSetupScreenProps> = (props) => {
   const { navigation } = props;
 
+  const handleOnImportWalletPress = () => {
+    navigation.navigate(importWalletRoute);
+  };
+
+  const handleOnCreateWalletPress = () => {
+    navigation.navigate(createPasswordRoute);
+  };
+
   return (
     <ScreenContainer>
-      <SafeAreaView style={flex1}>
-        <WalletSetup
-          onImportWalletPress={() => navigation.navigate(importWalletRoute)}
-          onCreateWalletPress={() => navigation.navigate(createNewWalletRoute)}
-        />
-      </SafeAreaView>
+      <WalletSetup
+        onImportWalletPress={handleOnImportWalletPress}
+        onCreateWalletPress={handleOnCreateWalletPress}
+      />
     </ScreenContainer>
   );
 };

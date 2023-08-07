@@ -5,14 +5,14 @@ import { Input, PasswordStrengthMeter, Switch, Text } from '@common/components';
 import { margin, padding } from '@styles/darkTheme';
 import { flex1, rowCenter } from '@styles/common';
 import { useAuthTranslations } from '@i18n/hooks';
-import { NewPasswordFormData } from '../types';
+import { AccountFormData } from '../types';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
-  control: Control<NewPasswordFormData>;
+  control: Control<any & AccountFormData>;
 }
 
-const NewPasswordForm: FC<Props> = (props) => {
+const PasswordForm: FC<Props> = (props) => {
   const { style, control } = props;
   const { t } = useAuthTranslations();
 
@@ -74,4 +74,4 @@ const NewPasswordForm: FC<Props> = (props) => {
   );
 };
 
-export default NewPasswordForm;
+export default PasswordForm;

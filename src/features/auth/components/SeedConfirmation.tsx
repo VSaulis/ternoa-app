@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { center, flex1 } from '@styles/common';
 import { colors, margin } from '@styles/darkTheme';
@@ -9,63 +9,59 @@ import {
   TextGradient,
 } from '@common/components';
 import { useAuthTranslations } from '@i18n/hooks';
-import { pickRandomIndex, pickRandomPhrases } from '@utils/crypto';
+import {
+  pickRandomIndex,
+  pickRandomSeedPhrases,
+  seedToSeedPhrases,
+} from '@utils/crypto';
 import SeedPhraseSelect from './SeedPhraseSelect';
 import { contentStyle, footerStyle } from '../styles';
-import { WalletCreationContext } from '../providers/WalletCreationProvider';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
   onComplete: (isSuccess: boolean) => void;
+  seed: string;
+  initialIndex?: number;
 }
 
 const stepsCount = 3;
+const randomIndex = pickRandomIndex();
 
-const SeedPhraseConfirmation: FC<Props> = (props) => {
-  const { style, onComplete } = props;
+const SeedConfirmation: FC<Props> = (props) => {
+  const { style, onComplete, seed } = props;
   const { t } = useAuthTranslations();
-  const { seedPhrase } = useContext(WalletCreationContext);
-  const [options, setOptions] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+
+  const [currentIndex, setCurrentIndex] = useState<number>(randomIndex);
+  const [options, setOptions] = useState<string[]>(
+    pickRandomSeedPhrases(seed, randomIndex),
+  );
+
   const [selectedPhrase, setSelectedPhrase] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState<boolean>(true);
-  const [usedIndexes, setUsedIndexes] = useState<number[]>([]);
+  const [usedIndexes, setUsedIndexes] = useState<number[]>([randomIndex]);
 
   const generateRandomPhrases = useCallback(
     (indexes: number[] = []) => {
       const newIndex = pickRandomIndex(indexes);
       setSelectedPhrase(null);
-      setOptions(pickRandomPhrases(seedPhrase ?? [], newIndex));
+      setOptions(pickRandomSeedPhrases(seed, newIndex));
       setCurrentIndex(newIndex);
       setUsedIndexes((prevState) => [...prevState, newIndex]);
     },
-    [seedPhrase],
+    [seed],
   );
 
-  useEffect(() => {
-    setUsedIndexes([]);
-  }, [seedPhrase]);
-
-  useEffect(() => {
-    generateRandomPhrases();
-  }, [generateRandomPhrases]);
-
   const handleOnNext = () => {
-    if (!seedPhrase || currentIndex === null) {
-      return;
-    }
-
     if (usedIndexes.length === stepsCount) {
       onComplete(isSuccess);
       return;
     }
 
-    generateRandomPhrases(usedIndexes);
-
-    const currentPhrase = seedPhrase[currentIndex];
-    if (currentPhrase !== selectedPhrase) {
+    if (seedToSeedPhrases(seed)[currentIndex] !== selectedPhrase) {
       setIsSuccess(false);
     }
+
+    generateRandomPhrases(usedIndexes);
   };
 
   return (
@@ -92,7 +88,7 @@ const SeedPhraseConfirmation: FC<Props> = (props) => {
             fontWeight="regular"
             fontSize="xxl"
             gradient="gradient1">
-            {`${currentIndex}. ${selectedPhrase ?? ''}`}
+            {`${currentIndex + 1}. ${selectedPhrase ?? ''}`}
           </TextGradient>
         </View>
         <View style={[center, margin('bottom')('l')]}>
@@ -125,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SeedPhraseConfirmation;
+export default SeedConfirmation;

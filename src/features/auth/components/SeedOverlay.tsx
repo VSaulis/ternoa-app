@@ -12,7 +12,7 @@ interface Props {
   onView: () => void;
 }
 
-const SeedPhraseOverlay: FC<Props> = (props) => {
+const SeedOverlay: FC<Props> = (props) => {
   const { style, onView } = props;
   const { t } = useAuthTranslations();
 
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SeedPhraseOverlay;
+export default SeedOverlay;

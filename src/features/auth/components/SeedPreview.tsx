@@ -1,22 +1,23 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useState } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { center, flex1 } from '@styles/common';
 import { margin } from '@styles/darkTheme';
 import { GradientButton, Text, TextGradient } from '@common/components';
 import { useAuthTranslations } from '@i18n/hooks';
-import SeedPhrase from './SeedPhrase';
+import { generateSeed } from '@utils/crypto';
+import Seed from './Seed';
 import { contentStyle, footerStyle } from '../styles';
-import { WalletCreationContext } from '../providers/WalletCreationProvider';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
-  onNext: () => void;
+  onNext: (seed: string) => void;
 }
 
-const SeedPhrasePreview: FC<Props> = (props) => {
+const SeedPreview: FC<Props> = (props) => {
   const { style, onNext } = props;
   const { t } = useAuthTranslations();
-  const { seedPhrase, generateSeedPhrase } = useContext(WalletCreationContext);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [seed] = useState<string>(generateSeed());
 
   return (
     <View style={[flex1, style]}>
@@ -35,13 +36,17 @@ const SeedPhrasePreview: FC<Props> = (props) => {
           )}
         </Text>
         <View style={[flex1, center]}>
-          <SeedPhrase onView={generateSeedPhrase} seedPhrase={seedPhrase} />
+          <Seed
+            isVisible={isVisible}
+            onView={() => setIsVisible(true)}
+            seed={seed}
+          />
         </View>
       </View>
       <View style={footerStyle}>
         <GradientButton
-          isDisabled={!seedPhrase}
-          onPress={onNext}
+          isDisabled={!isVisible}
+          onPress={() => onNext(seed)}
           size="medium"
           variant="primary"
           label={t('Next')}
@@ -51,4 +56,4 @@ const SeedPhrasePreview: FC<Props> = (props) => {
   );
 };
 
-export default SeedPhrasePreview;
+export default SeedPreview;

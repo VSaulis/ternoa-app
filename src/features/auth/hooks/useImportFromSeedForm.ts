@@ -5,37 +5,40 @@ import { useValidationsTranslations } from '@i18n/hooks';
 // @ts-ignore
 import { TFunction } from 'i18next';
 import { useMutation } from '@tanstack/react-query';
-import { AuthClient } from '@api/clients';
+import { writeSecureAsync } from '@utils/keychain';
+import { TernoaClient } from '@api/clients';
+import { getAccountSchema } from '@features/auth/constants';
+import { useAppDispatch } from '@core/redux-store/store';
+import { writeAddress } from '@features/wallets/storage';
+import { addAddress } from '@features/wallets/slice';
 import { ImportFromSeedFormData } from '../types';
 
 const initialFormData: ImportFromSeedFormData = {
   seed: '',
   newPassword: '',
   confirmNewPassword: '',
-  isFaceIdEnabled: true,
+  isFaceIdEnabled: false,
 };
 
 const getSchema = (t: TFunction) => {
-  return yup.object().shape({
-    seed: yup.string().required(t('Field is required')),
-    isFaceIdEnabled: yup.boolean().required(),
-    newPassword: yup
-      .string()
-      .min(8, t('Must be at least {{count}} characters', { count: 8 }))
-      .required(t('Field is required')),
-    confirmNewPassword: yup
-      .string()
-      .required(t('Field is required'))
-      .oneOf([yup.ref('password')], t('Passwords must match')),
-  });
+  return getAccountSchema(t).concat(
+    yup.object().shape({
+      seed: yup.string().required(t('Field is required')),
+    }),
+  );
 };
 
 const useImportFromSeedForm = () => {
   const { t } = useValidationsTranslations();
+  const dispatch = useAppDispatch();
 
   const { mutateAsync, isLoading: isSubmitting } = useMutation(
-    (formData: ImportFromSeedFormData) => {
-      return AuthClient.importAccount(formData.seed, formData.newPassword);
+    async (formData: ImportFromSeedFormData) => {
+      const { seed, newPassword } = formData;
+      const keyring = await TernoaClient.importAccount(seed, newPassword);
+      await writeSecureAsync(keyring.address, 'publicKey', keyring.publicKey);
+      await writeAddress(keyring.address);
+      dispatch(addAddress(keyring.address));
     },
   );
 
