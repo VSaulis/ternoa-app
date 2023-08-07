@@ -1,13 +1,8 @@
 import React, { FC, PropsWithChildren } from 'react';
-import {
-  SafeAreaView,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { flex1 } from '@styles/common';
 import { colors } from '@styles/darkTheme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -15,10 +10,11 @@ interface Props {
 
 const ScreenContainer: FC<PropsWithChildren<Props>> = (props) => {
   const { children, style } = props;
+  const { bottom } = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, style]}>
-      <SafeAreaView style={flex1}>{children}</SafeAreaView>
+    <View style={[styles.container, { paddingBottom: bottom }, style]}>
+      {children}
     </View>
   );
 };

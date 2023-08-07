@@ -28,6 +28,7 @@ const CreatePasswordForm: FC<Props> = (props) => {
   return (
     <View style={flex1}>
       <ScrollView
+        bounces={false}
         contentContainerStyle={contentStyle}
         scrollIndicatorInsets={{ right: 1 }}>
         <TextGradient

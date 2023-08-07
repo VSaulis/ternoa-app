@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { colors, fonts, fontSizes, padding, sizes } from '@styles/darkTheme';
+import { flex1 } from '@styles/common';
 import Svg from './Svg';
 import FormControl, { FormControlProps } from './FormControl';
 import Text from './Text';
@@ -28,9 +29,6 @@ interface Props extends InputProps, FormControlProps {
   onChange: (text: string) => void;
 }
 
-const labelShiftedPadding = sizes.s - sizes.xxs; // 10
-const labelPadding = sizes.xxs + sizes.m; // 20
-
 const Input: FC<Props> = (props) => {
   const {
     style,
@@ -48,8 +46,7 @@ const Input: FC<Props> = (props) => {
   const ref = useRef<TextInput>(null);
   const [isHidden, setIsHidden] = useState<boolean>(secureTextEntry);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const isLabelShifted = isFocused || !!value;
-  const labelTopShift = isLabelShifted ? labelShiftedPadding : labelPadding;
+  const isLabelVisible = isFocused || !!value;
 
   const handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     setIsFocused(true);
@@ -63,27 +60,30 @@ const Input: FC<Props> = (props) => {
 
   return (
     <FormControl style={style} error={error} help={help}>
-      <Text
-        color="gray12"
-        fontSize={isLabelShifted ? 'xs' : 's'}
-        fontWeight={isLabelShifted ? 'regular' : 'semiBold'}
-        style={[styles.label, { top: labelTopShift }]}
-        onPress={() => ref.current?.focus()}>
-        {label}
-      </Text>
+      {isLabelVisible && (
+        <Text
+          color="gray12"
+          fontSize="xs"
+          fontWeight="regular"
+          style={styles.label}
+          suppressHighlighting
+          onPress={() => ref.current?.focus()}>
+          {label}
+        </Text>
+      )}
       <TextInput
         ref={ref}
+        selectionColor={colors.white}
         keyboardAppearance="dark"
         value={value}
+        placeholder={!isFocused ? label : undefined}
+        placeholderTextColor={colors.gray12}
         onBlur={handleOnBlur}
         onFocus={handleOnFocus}
         secureTextEntry={isHidden}
         cursorColor={colors.white}
         onChangeText={onChange}
-        style={[
-          styles.input,
-          { paddingBottom: isLabelShifted ? labelShiftedPadding : sizes.xxxs },
-        ]}
+        style={[styles.input, isLabelVisible && { paddingTop: sizes.s }]}
         {...rest}
       />
       {secureTextEntry && (
@@ -99,22 +99,25 @@ const Input: FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
   label: {
-    ...padding('left')('m'),
-    borderTopLeftRadius: sizes.m,
-    borderTopRightRadius: sizes.m,
+    left: sizes.m,
+    top: sizes.xs,
+    position: 'absolute',
+    zIndex: 2,
   },
   input: {
     ...fonts.archivo.semiBold,
-    ...fontSizes.s,
-    ...padding('horizontal')('m'),
-    borderBottomLeftRadius: sizes.m,
-    borderBottomRightRadius: sizes.m,
+    ...padding('left')('m'),
+    ...padding('right')('xxxl'),
+    fontSize: fontSizes.s.fontSize,
+    height: 62,
+    borderRadius: sizes.m,
     color: colors.white,
+    backgroundColor: colors.gray24,
   },
   hideIcon: {
     position: 'absolute',
     right: sizes.m,
-    top: labelPadding,
+    top: 18,
   },
 });
 

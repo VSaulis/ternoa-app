@@ -21,6 +21,7 @@ const SecureWalletDescription: FC<Props> = (props) => {
   return (
     <View style={[flex1, style]}>
       <ScrollView
+        bounces={false}
         contentContainerStyle={contentStyle}
         scrollIndicatorInsets={{ right: 1 }}>
         <View style={[center, margin('bottom')('xxl')]}>

@@ -4,6 +4,7 @@ import { center, flex1 } from '@styles/common';
 import { margin, padding } from '@styles/darkTheme';
 import { GradientButton, Text, TextGradient } from '@common/components';
 import { useAuthTranslations } from '@i18n/hooks';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { contentStyle, footerStyle } from '../styles';
 import { useCreateWallet } from '../hooks';
 
@@ -18,13 +19,14 @@ const WalletCreationSuccess: FC<Props> = (props) => {
   const { seed, password } = props;
   const { t } = useAuthTranslations();
   const { createWallet, isSubmitting } = useCreateWallet();
+  const { top } = useSafeAreaInsets();
 
   const handleOnComplete = () => {
     return createWallet({ seed, password });
   };
 
   return (
-    <View style={flex1}>
+    <View style={[flex1, { paddingTop: top }]}>
       <View style={[flex1, contentStyle]}>
         <View style={[center, margin('bottom')('l')]}>
           <Image width={255} height={255} source={successIllustration} />

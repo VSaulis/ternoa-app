@@ -20,7 +20,7 @@ const SeedOverlay: FC<Props> = (props) => {
     <View style={[styles.container, style]}>
       <BlurView
         style={StyleSheet.absoluteFillObject}
-        blurType="light"
+        blurType="dark"
         blurAmount={12}
         blurRadius={12}
         overlayColor={hexToRgba('#222531', 0.6)}

@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     borderRadius: sizes.m,
     backgroundColor: hexToRgba(colors.black, 0),
     borderWidth: 1,
+    position: 'relative',
   },
 });
 

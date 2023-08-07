@@ -10,6 +10,7 @@ import { margin, padding, sizes } from '@styles/darkTheme';
 import { flex1, rowCenter } from '@styles/common';
 import Stepper from '@common/components/Stepper';
 import { Svg } from '@common/components';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -20,9 +21,10 @@ interface Props {
 
 const StepperHeader: FC<Props> = (props) => {
   const { style, onBack, canGoBack, step } = props;
+  const { top } = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, { marginTop: 20 + top }, style]}>
       {canGoBack && (
         <TouchableOpacity onPress={onBack}>
           <Svg size={24} color="white" name="arrowLeftBack" />
@@ -42,7 +44,6 @@ const styles = StyleSheet.create({
     ...rowCenter,
     ...padding('horizontal')('m'),
     paddingRight: sizes.l + sizes.m,
-    marginTop: 20,
     height: 44,
   },
 });
