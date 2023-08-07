@@ -1,6 +1,7 @@
 import React, { FC, useRef, useState } from 'react';
 import {
   NativeSyntheticEvent,
+  Platform,
   StyleSheet,
   TextInput,
   TextInputFocusEventData,
@@ -88,7 +89,9 @@ const Input: FC<Props> = (props) => {
           multiline && padding('bottom')('s'),
           multiline && { lineHeight: fontSizes.xs.lineHeight },
           isLabelVisible && {
-            paddingTop: multiline ? sizes.l + sizes.xxs : sizes.s,
+            paddingTop: multiline
+              ? Platform.select({ ios: sizes.l + sizes.xxs, android: sizes.l })
+              : Platform.select({ ios: sizes.s, android: 20 }),
           },
         ]}
         {...rest}
