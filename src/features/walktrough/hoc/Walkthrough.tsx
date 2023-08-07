@@ -30,7 +30,12 @@ const Walkthrough: FC = () => {
         activeDot={<PaginationDot color="primary5" />}
         paginationStyle={styles.pagination}>
         {slides.map((slide, index) => (
-          <Slide key={index} label={slide.label} image={slide.image} />
+          <Slide
+            key={index}
+            title={slide.title}
+            subtitle={slide.subtitle}
+            image={slide.image}
+          />
         ))}
       </Swiper>
       <View

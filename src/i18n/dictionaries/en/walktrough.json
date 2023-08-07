@@ -1,6 +1,9 @@
 {
   "Get Start": "Get Start",
-  "Property Diversity": "Property\n<gradient>Diversity</gradient>",
-  "Safe Security": "Safe\n<gradient>Security</gradient>",
-  "Convenient Transaction": "Convenient\n<gradient>Transaction</gradient>"
+  "Property": "Property",
+  "Diversity": "Diversity",
+  "Safe": "Safe",
+  "Security": "Security",
+  "Convenient": "Convenient",
+  "Transaction": "Transaction"
 }
