@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { Platform, StyleProp, View, ViewStyle } from 'react-native';
 import { Control, Controller } from 'react-hook-form';
 import { Input, PasswordStrengthMeter, Switch, Text } from '@common/components';
 import { margin, padding } from '@styles/darkTheme';
@@ -47,27 +47,29 @@ const NewPasswordForm: FC<Props> = (props) => {
             {...rest}
             error={error?.message}
             label={t('Confirm Password')}
-            style={margin('bottom')('l')}
             textContentType="newPassword"
             autoComplete="password-new"
             secureTextEntry
           />
         )}
       />
-      <View style={[rowCenter, padding('vertical')('xs')]}>
-        <Text
-          fontSize="m"
-          fontWeight="semiBold"
-          color="white"
-          style={[flex1, margin('right')('m')]}>
-          {t('Sign in with Face ID?')}
-        </Text>
-        <Controller
-          control={control}
-          name="isFaceIdEnabled"
-          render={({ field: { ref: _, ...rest } }) => <Switch {...rest} />}
-        />
-      </View>
+      {Platform.OS === 'ios' && (
+        <View
+          style={[rowCenter, padding('vertical')('xs'), margin('top')('l')]}>
+          <Text
+            fontSize="m"
+            fontWeight="semiBold"
+            color="white"
+            style={[flex1, margin('right')('m')]}>
+            {t('Sign in with Face ID?')}
+          </Text>
+          <Controller
+            control={control}
+            name="isFaceIdEnabled"
+            render={({ field: { ref: _, ...rest } }) => <Switch {...rest} />}
+          />
+        </View>
+      )}
     </View>
   );
 };

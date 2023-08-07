@@ -28,6 +28,9 @@ interface Props extends InputProps, FormControlProps {
   onChange: (text: string) => void;
 }
 
+const labelShiftedPadding = sizes.s - sizes.xxs; // 10
+const labelPadding = sizes.xxs + sizes.m; // 20
+
 const Input: FC<Props> = (props) => {
   const {
     style,
@@ -46,7 +49,7 @@ const Input: FC<Props> = (props) => {
   const [isHidden, setIsHidden] = useState<boolean>(secureTextEntry);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const isLabelShifted = isFocused || !!value;
-  const labelTopShift = isLabelShifted ? sizes.s : 20;
+  const labelTopShift = isLabelShifted ? labelShiftedPadding : labelPadding;
 
   const handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     setIsFocused(true);
@@ -64,7 +67,7 @@ const Input: FC<Props> = (props) => {
         color="gray12"
         fontSize={isLabelShifted ? 'xs' : 's'}
         fontWeight={isLabelShifted ? 'regular' : 'semiBold'}
-        style={[padding('left')('m'), { top: labelTopShift }]}
+        style={[styles.label, { top: labelTopShift }]}
         onPress={() => ref.current?.focus()}>
         {label}
       </Text>
@@ -76,11 +79,11 @@ const Input: FC<Props> = (props) => {
         onFocus={handleOnFocus}
         secureTextEntry={isHidden}
         cursorColor={colors.white}
+        onChangeText={onChange}
         style={[
           styles.input,
-          { paddingBottom: isLabelShifted ? sizes.s : sizes.xxs },
+          { paddingBottom: isLabelShifted ? labelShiftedPadding : sizes.xxxs },
         ]}
-        onChangeText={onChange}
         {...rest}
       />
       {secureTextEntry && (
@@ -95,6 +98,11 @@ const Input: FC<Props> = (props) => {
 };
 
 const styles = StyleSheet.create({
+  label: {
+    ...padding('left')('m'),
+    borderTopLeftRadius: sizes.m,
+    borderTopRightRadius: sizes.m,
+  },
   input: {
     ...fonts.archivo.semiBold,
     ...fontSizes.s,
@@ -106,7 +114,7 @@ const styles = StyleSheet.create({
   hideIcon: {
     position: 'absolute',
     right: sizes.m,
-    top: sizes.s + sizes.xs,
+    top: labelPadding,
   },
 });
 
