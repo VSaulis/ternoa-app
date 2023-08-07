@@ -32,7 +32,8 @@ const Walkthrough: FC = () => {
         {slides.map((slide, index) => (
           <Slide
             key={index}
-            title={slide.title}
+            heading={slide.heading}
+            isReversed={slide.isReversed}
             subtitle={slide.subtitle}
             image={slide.image}
           />

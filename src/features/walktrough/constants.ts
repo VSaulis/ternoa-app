@@ -6,19 +6,19 @@ const convenientTransactionImage = require('@assets/images/convenient-transactio
 
 export const slides: Slide[] = [
   {
-    title: 'Property',
+    heading: 'Property',
     subtitle: 'Diversity',
     isReversed: false,
     image: propertyDiversityImage,
   },
   {
-    title: 'Safe',
+    heading: 'Safe',
     subtitle: 'Security',
     isReversed: false,
     image: safeSecurityImage,
   },
   {
-    title: 'Convenient',
+    heading: 'Convenient',
     subtitle: 'Transaction',
     isReversed: true,
     image: convenientTransactionImage,

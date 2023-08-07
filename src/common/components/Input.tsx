@@ -29,6 +29,8 @@ interface Props extends InputProps, FormControlProps {
   onChange: (text: string) => void;
 }
 
+const labelShift = 18;
+
 const Input: FC<Props> = (props) => {
   const {
     style,
@@ -40,6 +42,7 @@ const Input: FC<Props> = (props) => {
     onBlur,
     onFocus,
     onChange,
+    multiline,
     ...rest
   } = props;
 
@@ -60,30 +63,34 @@ const Input: FC<Props> = (props) => {
 
   return (
     <FormControl style={style} error={error} help={help}>
-      {isLabelVisible && (
-        <Text
-          color="gray12"
-          fontSize="xs"
-          fontWeight="regular"
-          style={styles.label}
-          suppressHighlighting
-          onPress={() => ref.current?.focus()}>
-          {label}
-        </Text>
-      )}
+      <Text
+        color="gray12"
+        fontSize={isLabelVisible ? 'xs' : 's'}
+        fontWeight={isLabelVisible ? 'regular' : 'semiBold'}
+        style={[styles.label, { top: isLabelVisible ? sizes.xs : labelShift }]}
+        suppressHighlighting
+        onPress={() => ref.current?.focus()}>
+        {label}
+      </Text>
       <TextInput
         ref={ref}
         selectionColor={colors.white}
         keyboardAppearance="dark"
         value={value}
-        placeholder={!isFocused ? label : undefined}
-        placeholderTextColor={colors.gray12}
         onBlur={handleOnBlur}
         onFocus={handleOnFocus}
         secureTextEntry={isHidden}
+        multiline={multiline}
         cursorColor={colors.white}
         onChangeText={onChange}
-        style={[styles.input, isLabelVisible && { paddingTop: sizes.s }]}
+        style={[
+          styles.input,
+          multiline && padding('bottom')('s'),
+          multiline && { lineHeight: fontSizes.xs.lineHeight },
+          isLabelVisible && {
+            paddingTop: multiline ? sizes.l + sizes.xxs : sizes.s,
+          },
+        ]}
         {...rest}
       />
       {secureTextEntry && (
@@ -100,7 +107,6 @@ const Input: FC<Props> = (props) => {
 const styles = StyleSheet.create({
   label: {
     left: sizes.m,
-    top: sizes.xs,
     position: 'absolute',
     zIndex: 2,
   },
@@ -109,7 +115,7 @@ const styles = StyleSheet.create({
     ...padding('left')('m'),
     ...padding('right')('xxxl'),
     fontSize: fontSizes.s.fontSize,
-    height: 62,
+    minHeight: 62,
     borderRadius: sizes.m,
     color: colors.white,
     backgroundColor: colors.gray24,
@@ -117,7 +123,7 @@ const styles = StyleSheet.create({
   hideIcon: {
     position: 'absolute',
     right: sizes.m,
-    top: 18,
+    top: labelShift,
   },
 });
 

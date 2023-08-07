@@ -25,7 +25,6 @@ const getHeaderRightContainerStyle = (top: number): ViewStyle => ({
 });
 
 const getHeaderStyle = (top: number): ViewStyle => ({
-  height: top + 64,
   backgroundColor: colors.gray24,
 });
 

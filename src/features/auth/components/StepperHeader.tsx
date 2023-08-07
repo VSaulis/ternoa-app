@@ -24,7 +24,7 @@ const StepperHeader: FC<Props> = (props) => {
   const { top } = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, { marginTop: 20 + top }, style]}>
+    <View style={[styles.container, { marginTop: top }, style]}>
       {canGoBack && (
         <TouchableOpacity onPress={onBack}>
           <Svg size={24} color="white" name="arrowLeftBack" />
