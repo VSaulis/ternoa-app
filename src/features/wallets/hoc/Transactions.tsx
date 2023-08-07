@@ -7,7 +7,7 @@ import { Transaction } from '../types';
 
 const address = '5G145Vp65neFzsXJ7kCUomTSjmy2Yv5wKTFxHL69oHS5gBB2';
 
-const Wallets: FC = () => {
+const Transactions: FC = () => {
   const {
     balance,
     isRefetching: isBalanceRefetching,
@@ -46,8 +46,6 @@ const Wallets: FC = () => {
     return <TransactionsListItem transaction={item} onPress={console.log} />;
   };
 
-  console.log('transactions', transactions);
-
   return (
     <FlatList
       ListHeaderComponent={
@@ -68,4 +66,4 @@ const Wallets: FC = () => {
   );
 };
 
-export default Wallets;
+export default Transactions;
