@@ -23,7 +23,6 @@ export const importAccount = async (seed: string, password: string) => {
 
 export const createAccount = async (seed: string, password: string) => {
   const keyring = await getKeyringFromSeed(seed);
-  console.log('keyring', keyring);
 
   if (!keyring.isLocked) {
     keyring.encodePkcs8(password);
