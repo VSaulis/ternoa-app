@@ -1,4 +1,4 @@
-import { colors, padding, typographies } from '@styles/darkTheme';
+import { colors, fonts, fontSizes, padding } from '@styles/darkTheme';
 import { flexEnd, flexStart, rowCenter } from '@styles/common';
 import {
   StackNavigationOptions,
@@ -8,34 +8,35 @@ import { TextStyle, ViewStyle } from 'react-native';
 import { StackHeaderLeft } from './components';
 
 const headerTitleStyle: TextStyle = {
-  ...typographies.paragraphSemiBold,
+  ...fontSizes.s,
+  ...fonts.archivo.semiBold,
   color: colors.white,
 };
 
-const getHeaderLeftContainerStyle = (top: number): ViewStyle => ({
+const headerLeftContainerStyle: ViewStyle = {
   ...flexStart,
   ...rowCenter,
   ...padding('left')('m'),
-});
+};
 
-const getHeaderRightContainerStyle = (top: number): ViewStyle => ({
+const headerRightContainerStyle: ViewStyle = {
   ...flexEnd,
   ...rowCenter,
   ...padding('right')('m'),
-});
+};
 
-const getHeaderStyle = (top: number): ViewStyle => ({
+const headerStyle: ViewStyle = {
   backgroundColor: colors.gray24,
-});
+};
 
-export const getStackScreenOptions = (top: number): StackNavigationOptions => ({
+export const stackScreenOptions: StackNavigationOptions = {
   headerBackTitleVisible: false,
   headerTitleAlign: 'center',
   headerShadowVisible: false,
   headerTitleStyle,
   headerLeft: StackHeaderLeft,
-  headerLeftContainerStyle: getHeaderLeftContainerStyle(top),
-  headerRightContainerStyle: getHeaderRightContainerStyle(top),
-  headerStyle: getHeaderStyle(top),
+  headerLeftContainerStyle,
+  headerRightContainerStyle,
+  headerStyle,
   ...TransitionPresets.SlideFromRightIOS,
-});
+};

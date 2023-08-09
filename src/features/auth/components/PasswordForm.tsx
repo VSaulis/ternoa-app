@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { Platform, StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { Control, Controller } from 'react-hook-form';
 import { Input, PasswordStrengthMeter, Switch, Text } from '@common/components';
 import { margin, padding } from '@styles/darkTheme';
 import { flex1, rowCenter } from '@styles/common';
 import { useAuthTranslations } from '@i18n/hooks';
+import { useIsFaceIdEnabled } from '@common/hooks';
 import { AccountFormData } from '../types';
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 const PasswordForm: FC<Props> = (props) => {
   const { style, control } = props;
   const { t } = useAuthTranslations();
+  const { isEnabled: isFaceIdEnabled } = useIsFaceIdEnabled();
 
   return (
     <View style={style}>
@@ -53,7 +55,7 @@ const PasswordForm: FC<Props> = (props) => {
           />
         )}
       />
-      {Platform.OS === 'ios' && (
+      {isFaceIdEnabled && (
         <View
           style={[rowCenter, padding('vertical')('xs'), margin('top')('l')]}>
           <Text

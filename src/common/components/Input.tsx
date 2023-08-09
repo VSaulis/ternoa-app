@@ -1,12 +1,13 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useMemo, useRef, useState } from 'react';
 import {
   NativeSyntheticEvent,
-  Platform,
+  Pressable,
   StyleSheet,
   TextInput,
   TextInputFocusEventData,
   TextInputProps,
   TouchableOpacity,
+  ViewStyle,
 } from 'react-native';
 import { colors, fonts, fontSizes, padding, sizes } from '@styles/darkTheme';
 import { flex1 } from '@styles/common';
@@ -30,8 +31,6 @@ interface Props extends InputProps, FormControlProps {
   onChange: (text: string) => void;
 }
 
-const labelShift = 18;
-
 const Input: FC<Props> = (props) => {
   const {
     style,
@@ -50,7 +49,20 @@ const Input: FC<Props> = (props) => {
   const ref = useRef<TextInput>(null);
   const [isHidden, setIsHidden] = useState<boolean>(secureTextEntry);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const isLabelVisible = isFocused || !!value;
+
+  const isLabelSmall = useMemo<boolean>(
+    () => isFocused || !!value,
+    [isFocused, value],
+  );
+
+  const dynamicInputStyle = useMemo<ViewStyle>(
+    () => ({
+      ...(!isLabelSmall && { display: 'none' }),
+      ...(isLabelSmall && { minHeight: fontSizes.s.lineHeight }),
+      ...(isLabelSmall && multiline && { lineHeight: 20 }),
+    }),
+    [isLabelSmall, multiline],
+  );
 
   const handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     setIsFocused(true);
@@ -63,70 +75,69 @@ const Input: FC<Props> = (props) => {
   };
 
   return (
-    <FormControl style={style} error={error} help={help}>
-      <Text
-        color="gray12"
-        fontSize={isLabelVisible ? 'xs' : 's'}
-        fontWeight={isLabelVisible ? 'regular' : 'semiBold'}
-        style={[styles.label, { top: isLabelVisible ? sizes.xs : labelShift }]}
-        suppressHighlighting
-        onPress={() => ref.current?.focus()}>
-        {label}
-      </Text>
-      <TextInput
-        ref={ref}
-        selectionColor={colors.white}
-        keyboardAppearance="dark"
-        value={value}
-        onBlur={handleOnBlur}
-        onFocus={handleOnFocus}
-        secureTextEntry={isHidden}
-        multiline={multiline}
-        cursorColor={colors.white}
-        onChangeText={onChange}
-        style={[
-          styles.input,
-          multiline && padding('bottom')('s'),
-          multiline && { lineHeight: fontSizes.xs.lineHeight },
-          isLabelVisible && {
-            paddingTop: multiline
-              ? Platform.select({ ios: sizes.l + sizes.xxs, android: sizes.l })
-              : Platform.select({ ios: sizes.s, android: 20 }),
-          },
-        ]}
-        {...rest}
-      />
-      {secureTextEntry && (
-        <TouchableOpacity
-          style={styles.hideIcon}
-          onPress={() => setIsHidden((prev) => !prev)}>
-          <Svg size={24} color="white" name="eyeVisible" />
-        </TouchableOpacity>
-      )}
+    <FormControl
+      containerStyle={styles.container}
+      style={style}
+      error={error}
+      help={help}>
+      <Pressable style={styles.content} onPress={() => ref.current?.focus()}>
+        <Text
+          style={padding('left')('m')}
+          color="gray12"
+          fontSize={isLabelSmall ? 'xs' : 's'}
+          fontWeight={isLabelSmall ? 'regular' : 'semiBold'}>
+          {label}
+        </Text>
+        <TextInput
+          ref={ref}
+          selectionColor={colors.white}
+          keyboardAppearance="dark"
+          textAlignVertical="center"
+          value={value}
+          onBlur={handleOnBlur}
+          onFocus={handleOnFocus}
+          secureTextEntry={isHidden}
+          multiline={multiline}
+          cursorColor={colors.white}
+          onChangeText={onChange}
+          style={[styles.input, dynamicInputStyle]}
+          {...rest}
+        />
+        {secureTextEntry && (
+          <TouchableOpacity
+            style={styles.hideIcon}
+            onPress={() => setIsHidden((prev) => !prev)}>
+            <Svg size={24} color="white" name="eyeVisible" />
+          </TouchableOpacity>
+        )}
+      </Pressable>
     </FormControl>
   );
 };
 
 const styles = StyleSheet.create({
-  label: {
-    left: sizes.m,
-    position: 'absolute',
-    zIndex: 2,
+  container: {
+    minHeight: 64,
+  },
+  content: {
+    ...flex1,
+    ...padding('vertical')('xs'),
+    justifyContent: 'center',
   },
   input: {
     ...fonts.archivo.semiBold,
     ...padding('left')('m'),
     ...padding('right')('xxxl'),
+    paddingTop: 0,
+    paddingBottom: 0,
     fontSize: fontSizes.s.fontSize,
-    minHeight: 62,
-    borderRadius: sizes.m,
     color: colors.white,
     backgroundColor: colors.gray24,
   },
   hideIcon: {
     position: 'absolute',
     right: sizes.m,
-    top: labelShift,
+    top: 20,
   },
 });
 

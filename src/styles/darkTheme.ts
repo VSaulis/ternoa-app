@@ -6,7 +6,6 @@ import {
   Gradients,
   Sizes,
   SpacingProperty,
-  Typographies,
 } from './types';
 
 export const colors: Colors = {
@@ -132,69 +131,6 @@ export const fontSizes: FontSizes = {
   l: { fontSize: 18, lineHeight: 28 },
   xl: { fontSize: 20, lineHeight: 24 },
   xxl: { fontSize: 40, lineHeight: 56 },
-};
-
-export const typographies: Typographies = {
-  h1: {
-    ...fonts.archivo.bold,
-    fontSize: 96,
-    lineHeight: 104,
-  },
-  h2: {
-    ...fonts.archivo.bold,
-    fontSize: 60,
-    lineHeight: 68,
-  },
-  h3: {
-    ...fonts.archivo.bold,
-    fontSize: 48,
-    lineHeight: 56,
-  },
-  h4: {
-    ...fonts.archivo.bold,
-    fontSize: 34,
-    lineHeight: 42,
-  },
-  h5: {
-    ...fonts.archivo.bold,
-    fontSize: 24,
-    lineHeight: 36,
-  },
-  h6: {
-    ...fonts.archivo.bold,
-    fontSize: 20,
-    lineHeight: 28,
-  },
-  title1: {
-    ...fonts.archivo.semiBold,
-    fontSize: 18,
-    lineHeight: 28,
-  },
-  title2: {
-    ...fonts.archivo.semiBold,
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  subtitle1: {
-    ...fonts.archivo.regular,
-    fontSize: 18,
-    lineHeight: 28,
-  },
-  subtitle2: {
-    ...fonts.archivo.regular,
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  paragraphRegular: {
-    ...fonts.archivo.regular,
-    fontSize: 14,
-    lineHeight: 24,
-  },
-  paragraphSemiBold: {
-    ...fonts.archivo.semiBold,
-    fontSize: 14,
-    lineHeight: 24,
-  },
 };
 
 const paddingPropertyMap: Record<SpacingProperty, keyof FlexStyle> = {

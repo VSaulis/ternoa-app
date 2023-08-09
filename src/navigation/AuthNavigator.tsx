@@ -10,8 +10,7 @@ import {
   WalletCreationSuccessScreen,
   WalletSetupScreen,
 } from '@screens';
-import { getStackScreenOptions } from '@navigation/options';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { stackScreenOptions } from '@navigation/options';
 import { useNavigationTranslations } from '@i18n/hooks';
 import {
   createPasswordRoute,
@@ -39,11 +38,10 @@ const AuthStack = createStackNavigator<AuthParamList>();
 
 const AuthNavigator: FC = () => {
   const { t } = useNavigationTranslations();
-  const { top } = useSafeAreaInsets();
 
   return (
     <AuthStack.Navigator
-      screenOptions={getStackScreenOptions(top)}
+      screenOptions={stackScreenOptions}
       initialRouteName={walletSetupRoute}>
       <AuthStack.Screen
         options={{ headerShown: false }}

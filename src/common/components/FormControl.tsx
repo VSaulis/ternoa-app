@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: hexToRgba(colors.black, 0),
     borderWidth: 1,
     position: 'relative',
+    overflow: 'hidden',
   },
 });
 

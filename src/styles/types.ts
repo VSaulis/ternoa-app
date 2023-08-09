@@ -128,21 +128,6 @@ export interface Fonts {
   };
 }
 
-export interface Typographies {
-  h1: TextStyle;
-  h2: TextStyle;
-  h3: TextStyle;
-  h4: TextStyle;
-  h5: TextStyle;
-  h6: TextStyle;
-  title1: TextStyle;
-  title2: TextStyle;
-  subtitle1: TextStyle;
-  subtitle2: TextStyle;
-  paragraphRegular: TextStyle;
-  paragraphSemiBold: TextStyle;
-}
-
 export type SpacingProperty =
   | 'full'
   | 'top'
