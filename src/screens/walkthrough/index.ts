@@ -1,1 +1,1 @@
-export { default as WalktroughScreen } from './WalktroughScreen';
+export { default as WalkthroughScreen } from './WalkthroughScreen';

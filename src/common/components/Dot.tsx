@@ -1,29 +1,24 @@
 import React, { FC, useMemo } from 'react';
-import { Colors } from '@styles/types';
-import { StyleProp, View, ViewStyle } from 'react-native';
-import { colors } from '@styles/darkTheme';
-import { center } from '@styles/common';
+import { ViewStyle } from 'react-native';
+import View, { ViewProps } from './View';
 
-interface Props {
+interface Props extends ViewProps {
   size: number;
-  color: keyof Colors;
-  style?: StyleProp<ViewStyle>;
 }
 
 const Dot: FC<Props> = (props) => {
-  const { size, style, color } = props;
+  const { size, style, ...rest } = props;
 
   const dynamicStyle = useMemo<ViewStyle>(
     () => ({
-      backgroundColor: colors[color],
       height: size,
       width: size,
       borderRadius: size / 2,
     }),
-    [size, color],
+    [size],
   );
 
-  return <View style={[center, dynamicStyle, style]} />;
+  return <View center {...rest} style={[dynamicStyle, style]} />;
 };
 
 export default Dot;

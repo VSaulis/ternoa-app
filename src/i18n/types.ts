@@ -3,7 +3,7 @@ export type Locale = 'en';
 export type Namespace =
   | 'auth'
   | 'navigation'
-  | 'walktrough'
+  | 'walkthrough'
   | 'wallets'
   | 'common'
   | 'validations';

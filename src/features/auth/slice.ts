@@ -1,22 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface State {
-  isWalktroughCompleted: boolean;
+  isWalkthroughCompleted: boolean;
 }
 
 const initialState: State = {
-  isWalktroughCompleted: false,
+  isWalkthroughCompleted: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    completeWalktrough: (state) => {
-      state.isWalktroughCompleted = true;
+    completeWalkthrough: (state) => {
+      state.isWalkthroughCompleted = true;
     },
   },
 });
 
-export const { completeWalktrough } = authSlice.actions;
+export const { completeWalkthrough } = authSlice.actions;
 export const { reducer } = authSlice;

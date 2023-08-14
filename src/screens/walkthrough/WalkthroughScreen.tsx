@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { WalkthroughScreenProps } from '@navigation/types';
 import { ScreenContainer } from '@common/components';
-import { Walkthrough } from '@features/walktrough/hoc';
+import { Walkthrough } from '@features/walkthrough/hoc';
 
-const WalktroughScreen: FC<WalkthroughScreenProps> = () => {
+const WalkthroughScreen: FC<WalkthroughScreenProps> = () => {
   return (
     <ScreenContainer>
       <Walkthrough />
@@ -11,4 +11,4 @@ const WalktroughScreen: FC<WalkthroughScreenProps> = () => {
   );
 };
 
-export default WalktroughScreen;
+export default WalkthroughScreen;

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from '@core/redux-store/store';
-import { getIsWalkthroughCompleted } from '@features/walktrough/storage';
-import { setIsWalktroughCompleted } from '@features/walktrough/slice';
+import { getIsWalkthroughCompleted } from '@features/walkthrough/storage';
+import { setIsWalkthroughCompleted } from '@features/walkthrough/slice';
 import { readAddresses } from '@features/wallets/storage';
 import { setAddresses } from '@features/wallets/slice';
 
@@ -13,7 +13,7 @@ const useCachedResources = () => {
     const isWalkthroughCompleted = await getIsWalkthroughCompleted();
     const addresses = await readAddresses();
 
-    dispatch(setIsWalktroughCompleted(isWalkthroughCompleted ?? false));
+    dispatch(setIsWalkthroughCompleted(isWalkthroughCompleted ?? false));
     dispatch(setAddresses(addresses ?? []));
   }, [dispatch]);
 

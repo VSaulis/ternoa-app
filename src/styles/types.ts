@@ -1,5 +1,3 @@
-import { TextStyle } from 'react-native';
-
 export interface Colors {
   white: string;
   black: string;

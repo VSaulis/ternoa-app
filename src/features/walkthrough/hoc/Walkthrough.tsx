@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { flex1 } from '@styles/common';
+import { StyleSheet } from 'react-native';
 import { padding, sizes } from '@styles/darkTheme';
-import { Button } from '@common/components';
+import { Button, Dot, View } from '@common/components';
 import { useWalkthroughTranslations } from '@i18n/hooks';
 import Swiper from 'react-native-swiper';
 import { useAppDispatch } from '@core/redux-store/store';
 import { completeWalkthrough } from '../storage';
-import { setIsWalktroughCompleted } from '../slice';
+import { setIsWalkthroughCompleted } from '../slice';
 import { slides } from '../constants';
-import { PaginationDot, Slide } from '../components';
+import { Slide } from '../components';
 
 const Walkthrough: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,17 +16,17 @@ const Walkthrough: FC = () => {
 
   const handleOnGetStartedPress = async () => {
     await completeWalkthrough();
-    dispatch(setIsWalktroughCompleted(true));
+    dispatch(setIsWalkthroughCompleted(true));
   };
 
   return (
-    <View style={flex1}>
+    <View flex1>
       <Swiper
         horizontal
         loop={false}
         showsPagination
-        dot={<PaginationDot color="gray18" />}
-        activeDot={<PaginationDot color="primary5" />}
+        dot={<Dot mh="xxxs" size={8} backgroundColor="gray18" />}
+        activeDot={<Dot mh="xxxs" size={8} backgroundColor="primary5" />}
         paginationStyle={styles.pagination}>
         {slides.map((slide, index) => (
           <Slide
@@ -39,12 +38,7 @@ const Walkthrough: FC = () => {
           />
         ))}
       </Swiper>
-      <View
-        style={[
-          padding('horizontal')('l'),
-          padding('top')('xs'),
-          padding('bottom')('xxl'),
-        ]}>
+      <View ph="l" pt="xs" pb="xxl">
         <Button
           size="medium"
           label={t('Get Started')}

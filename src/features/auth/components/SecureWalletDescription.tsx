@@ -7,7 +7,7 @@ import { Trans } from 'react-i18next';
 import { useAuthTranslations } from '@i18n/hooks';
 import { contentStyle, footerStyle } from '../styles';
 
-const safeSecurityIllustration = require('@assets/images/safe-security.png');
+const safeSecurityIllustration = require('@assets/images/walkthrough/safe-security.png');
 
 interface Props {
   style?: StyleProp<ViewStyle>;

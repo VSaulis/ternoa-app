@@ -7,9 +7,9 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import { WalktroughScreen } from '@screens';
+import { WalkthroughScreen } from '@screens';
 import { useAppSelector } from '@core/redux-store/store';
-import { selectIsWalktroughCompleted } from '@features/walktrough/selectors';
+import { selectIsWalkthroughCompleted } from '@features/walkthrough/selectors';
 import { selectIsHasAddress } from '@features/wallets/selectors';
 import AuthNavigator, { AuthParamList } from './AuthNavigator';
 import MainNavigator, { MainParamList } from './MainNavigator';
@@ -33,7 +33,7 @@ export type RootParamList = {
 const RootStack = createStackNavigator<RootParamList>();
 
 const RootNavigator: FC = () => {
-  const isWalktroughCompleted = useAppSelector(selectIsWalktroughCompleted);
+  const isWalkthroughCompleted = useAppSelector(selectIsWalkthroughCompleted);
   const isHasAddress = useAppSelector(selectIsHasAddress);
 
   return (
@@ -42,10 +42,10 @@ const RootNavigator: FC = () => {
         screenOptions={screenOptions}
         initialRouteName={walkthroughRoute}>
         <RootStack.Group>
-          {!isWalktroughCompleted && (
+          {!isWalkthroughCompleted && (
             <RootStack.Screen
               name={walkthroughRoute}
-              component={WalktroughScreen}
+              component={WalkthroughScreen}
             />
           )}
           {isHasAddress ? (

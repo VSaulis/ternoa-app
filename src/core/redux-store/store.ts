@@ -2,12 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { reducer as authReducer } from '@features/auth/slice';
-import { reducer as walktroughReducer } from '@features/walktrough/slice';
+import { reducer as walkthroughReducer } from '@features/walkthrough/slice';
 import { reducer as walletsReducer } from '@features/wallets/slice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  walktrough: walktroughReducer,
+  walkthrough: walkthroughReducer,
   wallets: walletsReducer,
 });
 

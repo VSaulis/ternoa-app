@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { contentStyle, footerStyle } from '../styles';
 import { useCreateWallet } from '../hooks';
 
-const successIllustration = require('@assets/images/success.png');
+const successIllustration = require('@assets/images/auth/success.png');
 
 interface Props {
   seed: string;

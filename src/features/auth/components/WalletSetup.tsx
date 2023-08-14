@@ -5,7 +5,7 @@ import { center, flex1 } from '@styles/common';
 import { Button, GradientButton, Text } from '@common/components';
 import { useAuthTranslations } from '@i18n/hooks';
 
-const setupWalletIllustration = require('@assets/images/setup-wallet.png');
+const setupWalletIllustration = require('@assets/images/auth/setup-wallet.png');
 
 interface Props {
   onImportWalletPress: () => void;
