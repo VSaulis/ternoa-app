@@ -11,4 +11,3 @@ export { default as TextGradient } from './TextGradient';
 export { default as ProgressBar } from './ProgressBar';
 export { default as Dot } from './Dot';
 export { default as PasswordStrengthMeter } from './PasswordStrengthMeter';
-export { default as View } from './View';

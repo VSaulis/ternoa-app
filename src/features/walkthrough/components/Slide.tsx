@@ -4,10 +4,12 @@ import {
   ImageSourcePropType,
   StyleProp,
   StyleSheet,
+  View,
   ViewStyle,
 } from 'react-native';
-import { fontSizes } from '@styles/darkTheme';
-import { Text, TextGradient, View } from '@common/components';
+import { fontSizes, padding } from '@styles/darkTheme';
+import { center, flex1 } from '@styles/common';
+import { Text, TextGradient } from '@common/components';
 import { useWalkthroughTranslations } from '@i18n/hooks';
 
 interface Props {
@@ -23,8 +25,8 @@ const Slide: FC<PropsWithChildren<Props>> = (props) => {
   const { t } = useWalkthroughTranslations();
 
   return (
-    <View center flex1 pt="xl" ph="l" style={[styles.container, style]}>
-      <View center flex1>
+    <View style={[flex1, center, padding('horizontal')('l'), style]}>
+      <View style={[flex1, center]}>
         <Image width={295} height={295} source={image} />
       </View>
       <View
@@ -52,11 +54,10 @@ const Slide: FC<PropsWithChildren<Props>> = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingBottom: 104,
-  },
   textContainer: {
     height: fontSizes.xxl.lineHeight * 2,
+    marginBottom: 104,
+    flexDirection: 'column',
   },
   reverseTextContainer: {
     flexDirection: 'column-reverse',

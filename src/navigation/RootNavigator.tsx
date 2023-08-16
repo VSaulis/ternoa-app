@@ -48,7 +48,7 @@ const RootNavigator: FC = () => {
               component={WalkthroughScreen}
             />
           )}
-          {isHasAddress ? (
+          {!isHasAddress ? (
             <RootStack.Screen
               name={mainNavigatorRoute}
               component={MainNavigator}
